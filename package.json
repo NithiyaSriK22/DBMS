@@ -1,0 +1,39 @@
+{
+  "name": "biodiversity-management-system",
+  "version": "1.0.0",
+  "description": "Full-Stack Relational Database Management System for Biodiversity Monitoring and Conservation",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server/index.js",
+    "client": "npm --prefix client run dev",
+    "seed": "node server/scripts/seed.js",
+    "build": "npm --prefix client run build",
+    "start": "node server/index.js"
+  },
+  "keywords": [
+    "dbms",
+    "biodiversity",
+    "relational-database",
+    "sql",
+    "mysql",
+    "3nf",
+    "full-stack",
+    "express",
+    "react"
+  ],
+  "author": "Antigravity Engineering",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.12.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
