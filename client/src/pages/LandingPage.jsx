@@ -86,7 +86,7 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
           alignItems: 'center',
           justifyContent: 'space-between',
           borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(7, 21, 16, 0.85)',
+          background: 'rgba(255, 255, 255, 0.92)',
           backdropFilter: 'blur(12px)',
           position: 'sticky',
           top: 0,
@@ -99,21 +99,22 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
               width: '38px',
               height: '38px',
               borderRadius: 'var(--radius-md)',
-              background: 'linear-gradient(135deg, #10b981 0%, #047857 100%)',
+              background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '1.2rem',
-              boxShadow: '0 2px 10px rgba(16, 185, 129, 0.4)',
+              color: '#ffffff',
+              boxShadow: '0 2px 10px rgba(5, 150, 105, 0.3)',
             }}
           >
             🌿
           </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+            <div style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
               BIODIVERSITY MANAGEMENT SYSTEM
             </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--emerald-400)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--emerald-600)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
               Relational Database Platform (3NF)
             </div>
           </div>
@@ -126,15 +127,15 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
               alignItems: 'center',
               gap: '0.4rem',
               padding: '0.35rem 0.75rem',
-              background: 'rgba(16, 185, 129, 0.1)',
-              border: '1px solid var(--border-subtle)',
+              background: '#ecfdf5',
+              border: '1px solid #a7f3d0',
               borderRadius: 'var(--radius-full)',
               fontSize: '0.75rem',
-              color: 'var(--emerald-300)',
+              color: '#065f46',
             }}
           >
-            <Database size={13} />
-            <span>Relational SQL Engine</span>
+            <Database size={13} color="#059669" />
+            <span style={{ fontWeight: 600 }}>Relational SQL Engine</span>
           </div>
 
           <button className="btn btn-primary" onClick={onGetStarted}>
@@ -160,11 +161,11 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.4rem 1rem',
-            background: 'var(--bg-surface-elevated)',
-            border: '1px solid var(--border-medium)',
+            background: '#ecfdf5',
+            border: '1px solid #a7f3d0',
             borderRadius: 'var(--radius-full)',
             fontSize: '0.8rem',
-            color: 'var(--emerald-300)',
+            color: '#065f46',
             marginBottom: '1.5rem',
           }}
         >
@@ -179,7 +180,7 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
             lineHeight: 1.15,
             letterSpacing: '-0.03em',
             marginBottom: '1.25rem',
-            color: '#ffffff',
+            color: '#06281c',
           }}
         >
           Biodiversity Management System
@@ -189,7 +190,7 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
           style={{
             fontSize: 'clamp(1.25rem, 2.5vw, 1.8rem)',
             fontWeight: 600,
-            color: 'var(--emerald-400)',
+            color: 'var(--emerald-600)',
             marginBottom: '1.5rem',
             letterSpacing: '0.02em',
           }}
@@ -238,23 +239,23 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
         >
           <div>
             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Database Taxa</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#ffffff', fontFamily: 'var(--font-heading)' }}>24+</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--emerald-400)' }}>Normalized 3NF Entities</div>
+            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#06281c', fontFamily: 'var(--font-heading)' }}>24+</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: 600 }}>Normalized 3NF Entities</div>
           </div>
           <div>
             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Key Habitats</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#38bdf8', fontFamily: 'var(--font-heading)' }}>8 Biomes</div>
+            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#0284c7', fontFamily: 'var(--font-heading)' }}>8 Biomes</div>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Rainforests, Mangroves, Reefs</div>
           </div>
           <div>
             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Surveillance Surveys</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#fbbf24', fontFamily: 'var(--font-heading)' }}>24 Field Logs</div>
+            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#d97706', fontFamily: 'var(--font-heading)' }}>24 Field Logs</div>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>GPS, Drone, Camera Grid</div>
           </div>
           <div>
             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Active Programs</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#34d399', fontFamily: 'var(--font-heading)' }}>₹191M Budget</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--emerald-400)' }}>Multi-state Initiatives</div>
+            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#059669', fontFamily: 'var(--font-heading)' }}>₹191M Budget</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: 600 }}>Multi-state Initiatives</div>
           </div>
         </div>
       </section>
@@ -280,15 +281,17 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '1rem',
-                  transition: 'transform 0.2s ease, border-color 0.2s ease',
+                  transition: 'transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)';
                   e.currentTarget.style.borderColor = 'var(--emerald-500)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-md)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
                 }}
               >
                 <div
@@ -296,9 +299,9 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
                     width: '46px',
                     height: '46px',
                     borderRadius: 'var(--radius-md)',
-                    background: 'rgba(16, 185, 129, 0.12)',
-                    border: '1px solid rgba(16, 185, 129, 0.3)',
-                    color: 'var(--emerald-400)',
+                    background: '#ecfdf5',
+                    border: '1px solid #a7f3d0',
+                    color: '#059669',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -306,7 +309,7 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
                 >
                   <Icon size={24} />
                 </div>
-                <h3 style={{ fontSize: '1.2rem', color: '#ffffff' }}>{pillar.title}</h3>
+                <h3 style={{ fontSize: '1.2rem', color: '#06281c' }}>{pillar.title}</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: '1.5' }}>
                   {pillar.desc}
                 </p>
@@ -322,8 +325,8 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
           className="card-elevated"
           style={{
             padding: '3rem 2rem',
-            background: 'linear-gradient(180deg, #0f261d 0%, #081711 100%)',
-            border: '1px solid var(--border-bright)',
+            background: 'linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%)',
+            border: '1px solid #bbf7d0',
             textAlign: 'center',
           }}
         >
@@ -333,10 +336,10 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
               alignItems: 'center',
               gap: '0.5rem',
               padding: '0.35rem 0.85rem',
-              background: 'rgba(251, 191, 36, 0.12)',
-              border: '1px solid rgba(251, 191, 36, 0.3)',
+              background: '#fef3c7',
+              border: '1px solid #fde68a',
               borderRadius: 'var(--radius-full)',
-              color: '#fbbf24',
+              color: '#b45309',
               fontSize: '0.75rem',
               fontWeight: 700,
               marginBottom: '1rem',
@@ -344,7 +347,7 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
           >
             ⚡ EVALUATOR & FACULTY QUICK-ACCESS
           </div>
-          <h2 style={{ fontSize: '2.2rem', marginBottom: '0.75rem' }}>Instant Role-Based Demo Login</h2>
+          <h2 style={{ fontSize: '2.2rem', marginBottom: '0.75rem', color: '#06281c' }}>Instant Role-Based Demo Login</h2>
           <p style={{ color: 'var(--text-secondary)', maxWidth: '650px', margin: '0 auto 2.5rem' }}>
             Click any authorized role below to automatically authenticate and evaluate specialized permissions, CRUD access, and SQL analytics.
           </p>
@@ -355,13 +358,14 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
                 key={idx}
                 className="card"
                 style={{
-                  background: 'var(--bg-surface)',
-                  border: '1px solid var(--border-medium)',
+                  background: '#ffffff',
+                  border: '1px solid var(--border-subtle)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   padding: '1.5rem',
                   gap: '1rem',
+                  boxShadow: 'var(--shadow-sm)',
                 }}
               >
                 <div>
@@ -372,17 +376,17 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
                         borderRadius: 'var(--radius-full)',
                         fontSize: '0.75rem',
                         fontWeight: 700,
-                        background: `${demo.badgeColor}22`,
+                        background: `${demo.badgeColor}15`,
                         color: demo.badgeColor,
-                        border: `1px solid ${demo.badgeColor}44`,
+                        border: `1px solid ${demo.badgeColor}33`,
                       }}
                     >
                       {demo.role}
                     </span>
                     <Lock size={14} color="var(--text-muted)" />
                   </div>
-                  <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#ffffff' }}>{demo.name}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>
+                  <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#06281c' }}>{demo.name}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem', fontWeight: 600 }}>
                     {demo.email}
                   </div>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: '1.4' }}>

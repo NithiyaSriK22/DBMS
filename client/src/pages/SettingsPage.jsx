@@ -52,8 +52,8 @@ export const SettingsPage = () => {
       {/* User Profile Form */}
       <div className="card" style={{ background: 'var(--bg-surface)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
-          <User size={18} color="var(--emerald-400)" />
-          <h3 style={{ fontSize: '1.1rem', color: '#ffffff' }}>Your Profile Information</h3>
+          <User size={18} color="var(--emerald-600)" />
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)' }}>Your Profile Information</h3>
         </div>
 
         <form onSubmit={handleUpdateProfile}>
@@ -98,15 +98,15 @@ export const SettingsPage = () => {
               <div
                 style={{
                   padding: '0.65rem 0.9rem',
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-medium)',
+                  background: '#ecfdf5',
+                  border: '1px solid #a7f3d0',
                   borderRadius: 'var(--radius-md)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
                   fontSize: '0.875rem',
                   fontWeight: 600,
-                  color: 'var(--emerald-400)',
+                  color: 'var(--emerald-600)',
                 }}
               >
                 <ShieldCheck size={16} />
@@ -124,14 +124,14 @@ export const SettingsPage = () => {
       {/* Relational Database Diagnostics */}
       <div className="card" style={{ background: 'var(--bg-surface)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
-          <Database size={18} color="var(--emerald-400)" />
-          <h3 style={{ fontSize: '1.1rem', color: '#ffffff' }}>Relational Database Diagnostics</h3>
+          <Database size={18} color="var(--emerald-600)" />
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)' }}>Relational Database Diagnostics</h3>
         </div>
 
         <div className="grid-3" style={{ marginBottom: '1rem' }}>
-          <div style={{ background: 'var(--bg-card)', padding: '0.85rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ background: '#f8fafc', padding: '0.85rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Schema Normalization</div>
-            <div style={{ fontWeight: 800, color: 'var(--emerald-400)', fontSize: '1rem', marginTop: '0.2rem' }}>
+            <div style={{ fontWeight: 800, color: 'var(--emerald-600)', fontSize: '1rem', marginTop: '0.2rem' }}>
               Third Normal Form (3NF)
             </div>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
@@ -139,9 +139,9 @@ export const SettingsPage = () => {
             </div>
           </div>
 
-          <div style={{ background: 'var(--bg-card)', padding: '0.85rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ background: '#f8fafc', padding: '0.85rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Foreign Key Enforcement</div>
-            <div style={{ fontWeight: 800, color: '#38bdf8', fontSize: '1rem', marginTop: '0.2rem' }}>
+            <div style={{ fontWeight: 800, color: '#0284c7', fontSize: '1rem', marginTop: '0.2rem' }}>
               CASCADE & RESTRICT Active
             </div>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
@@ -149,9 +149,9 @@ export const SettingsPage = () => {
             </div>
           </div>
 
-          <div style={{ background: 'var(--bg-card)', padding: '0.85rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ background: '#f8fafc', padding: '0.85rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Core Entities</div>
-            <div style={{ fontWeight: 800, color: '#fbbf24', fontSize: '1rem', marginTop: '0.2rem' }}>
+            <div style={{ fontWeight: 800, color: '#d97706', fontSize: '1rem', marginTop: '0.2rem' }}>
               11 Relational Tables
             </div>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
@@ -164,8 +164,8 @@ export const SettingsPage = () => {
       {/* Role-Based Permissions Matrix */}
       <div className="card" style={{ background: 'var(--bg-surface)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
-          <ShieldCheck size={18} color="var(--emerald-400)" />
-          <h3 style={{ fontSize: '1.1rem', color: '#ffffff' }}>Role-Based Access Control (RBAC) Matrix</h3>
+          <ShieldCheck size={18} color="var(--emerald-600)" />
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)' }}>Role-Based Access Control (RBAC) Matrix</h3>
         </div>
 
         <div className="table-container">

@@ -305,30 +305,30 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
 
       {/* SPECIES DATA TABLE */}
       <div className="table-container">
-        <table className="data-table">
+        <table className="data-table" style={{ minWidth: '1020px' }}>
           <thead>
             <tr>
-              <th style={{ width: '60px' }}>ID</th>
-              <th>Species</th>
-              <th>Type</th>
-              <th>Family</th>
-              <th>Conservation Status</th>
-              <th>Population Est.</th>
-              <th>Relational Links</th>
-              <th style={{ textAlign: 'right' }}>Actions</th>
+              <th style={{ width: '70px', whiteSpace: 'nowrap' }}>ID</th>
+              <th style={{ minWidth: '220px', whiteSpace: 'nowrap' }}>Species</th>
+              <th style={{ minWidth: '110px', whiteSpace: 'nowrap' }}>Type</th>
+              <th style={{ minWidth: '130px', whiteSpace: 'nowrap' }}>Family</th>
+              <th style={{ minWidth: '180px', whiteSpace: 'nowrap' }}>Conservation Status</th>
+              <th style={{ minWidth: '140px', whiteSpace: 'nowrap' }}>Population Est.</th>
+              <th style={{ minWidth: '150px', whiteSpace: 'nowrap' }}>Relational Links</th>
+              <th style={{ minWidth: '130px', textAlign: 'right', whiteSpace: 'nowrap' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={8} style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                <td colSpan={8} style={{ textAlign: 'center', padding: '3.5rem', color: 'var(--text-muted)' }}>
                   <Loader2 size={24} className="animate-spin" style={{ margin: '0 auto 0.5rem' }} />
                   Loading relational species records...
                 </td>
               </tr>
             ) : speciesList.length === 0 ? (
               <tr>
-                <td colSpan={8} style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                <td colSpan={8} style={{ textAlign: 'center', padding: '3.5rem', color: 'var(--text-muted)' }}>
                   <Bug size={32} style={{ margin: '0 auto 0.5rem', opacity: 0.4 }} />
                   <div style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>No species records found</div>
                   <p style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>Try modifying filters or add a new species record.</p>
@@ -337,57 +337,57 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
             ) : (
               speciesList.map((item) => (
                 <tr key={item.Species_ID}>
-                  <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
+                  <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.825rem', whiteSpace: 'nowrap' }}>
                     #{item.Species_ID}
                   </td>
                   <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                       <img
                         src={item.Image_Url || 'https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=150&q=80'}
                         alt={item.Common_Name}
                         style={{
-                          width: '40px',
-                          height: '40px',
-                          borderRadius: 'var(--radius-sm)',
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: 'var(--radius-md)',
                           objectFit: 'cover',
                           border: '1px solid var(--border-subtle)',
+                          flexShrink: 0,
                         }}
                       />
                       <div>
-                        <div style={{ fontWeight: 600, color: '#ffffff' }}>{item.Common_Name}</div>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontStyle: 'italic' }}>
+                        <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.925rem' }}>{item.Common_Name}</div>
+                        <div style={{ fontSize: '0.775rem', color: 'var(--emerald-600)', fontStyle: 'italic', fontWeight: 600 }}>
                           {item.Scientific_Name}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
                     <span className="badge badge-role">{item.Species_Type}</span>
                   </td>
-                  <td style={{ color: 'var(--text-secondary)' }}>{item.Family}</td>
-                  <td>
+                  <td style={{ color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>{item.Family}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
                     <StatusBadge status={item.Conservation_Status} />
                   </td>
-                  <td style={{ fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                  <td style={{ fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>
                     {item.Population_Estimate ? Number(item.Population_Estimate).toLocaleString() : 'Unknown'}
                   </td>
-                  <td>
-                    <div style={{ display: 'flex', gap: '0.4rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                      <span title="Linked Habitats">🌳 {item.habitatCount || 0}</span>
-                      <span>•</span>
-                      <span title="Threats">⚠️ {item.threatCount || 0}</span>
-                      <span>•</span>
-                      <span title="Observations">👁️ {item.observationCount || 0}</span>
+                  <td style={{ whiteSpace: 'nowrap' }}>
+                    <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.775rem', color: 'var(--text-muted)' }}>
+                      <span title="Linked Habitats" style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>🌳 {item.habitatCount || 0}</span>
+                      <span title="Threats" style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>⚠️ {item.threatCount || 0}</span>
+                      <span title="Observations" style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>👁️ {item.observationCount || 0}</span>
                     </div>
                   </td>
-                  <td style={{ textAlign: 'right' }}>
-                    <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
+                  <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    <div style={{ display: 'inline-flex', gap: '0.5rem', alignItems: 'center' }}>
                       <button
                         className="btn btn-secondary btn-sm"
                         title="View Complete Relational Profile"
                         onClick={() => handleOpenProfile(item.Species_ID)}
+                        style={{ padding: '0.45rem 0.65rem' }}
                       >
-                        <Eye size={14} />
+                        <Eye size={15} />
                       </button>
 
                       {hasRole('Admin', 'Researcher') && (
@@ -395,8 +395,9 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                           className="btn btn-secondary btn-sm"
                           title="Edit Species"
                           onClick={() => handleOpenEdit(item)}
+                          style={{ padding: '0.45rem 0.65rem' }}
                         >
-                          <Edit2 size={14} />
+                          <Edit2 size={15} />
                         </button>
                       )}
 
@@ -405,8 +406,9 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                           className="btn btn-danger btn-sm"
                           title="Delete Species"
                           onClick={() => setDeleteTarget(item)}
+                          style={{ padding: '0.45rem 0.65rem' }}
                         >
-                          <Trash2 size={14} />
+                          <Trash2 size={15} />
                         </button>
                       )}
                     </div>
@@ -624,8 +626,8 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                       style={{ width: '48px', height: '48px', borderRadius: 'var(--radius-md)', objectFit: 'cover' }}
                     />
                     <div>
-                      <h3 style={{ fontSize: '1.25rem', color: '#ffffff' }}>{speciesProfile.Common_Name}</h3>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--emerald-400)', fontStyle: 'italic' }}>
+                      <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)' }}>{speciesProfile.Common_Name}</h3>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--emerald-600)', fontStyle: 'italic', fontWeight: 600 }}>
                         {speciesProfile.Scientific_Name} • {speciesProfile.Family}
                       </div>
                     </div>
@@ -643,7 +645,7 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                   style={{
                     display: 'flex',
                     borderBottom: '1px solid var(--border-subtle)',
-                    background: 'var(--bg-surface-elevated)',
+                    background: '#f8fafc',
                     padding: '0 1rem',
                   }}
                 >
@@ -661,8 +663,8 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                         padding: '0.75rem 1rem',
                         background: 'transparent',
                         border: 'none',
-                        borderBottom: activeProfileTab === tab.id ? '2px solid var(--emerald-400)' : '2px solid transparent',
-                        color: activeProfileTab === tab.id ? 'var(--emerald-400)' : 'var(--text-muted)',
+                        borderBottom: activeProfileTab === tab.id ? '2px solid var(--emerald-600)' : '2px solid transparent',
+                        color: activeProfileTab === tab.id ? 'var(--emerald-600)' : 'var(--text-muted)',
                         fontWeight: activeProfileTab === tab.id ? 700 : 500,
                         fontSize: '0.85rem',
                         cursor: 'pointer',
@@ -694,7 +696,7 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
 
                         <div className="card" style={{ background: 'var(--bg-card)' }}>
                           <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Taxa Class</span>
-                          <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--emerald-300)', marginTop: '0.2rem' }}>
+                          <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--emerald-600)', marginTop: '0.2rem' }}>
                             {speciesProfile.Species_Type}
                           </div>
                         </div>
@@ -727,14 +729,14 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                         speciesProfile.habitats?.map((h) => (
                           <div key={h.Habitat_ID} className="card" style={{ background: 'var(--bg-card)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <div>
-                              <div style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.95rem' }}>{h.Habitat_Name}</div>
+                              <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{h.Habitat_Name}</div>
                               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
                                 {h.Habitat_Type} • {h.Climate} • {Number(h.Area).toLocaleString()} sq km
                               </div>
                             </div>
                             <div style={{ textAlign: 'right' }}>
                               <span className="badge badge-active">{h.Protection_Status}</span>
-                              <div style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', marginTop: '0.3rem', fontWeight: 600 }}>
+                              <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', marginTop: '0.3rem', fontWeight: 600 }}>
                                 Local Pop: {Number(h.habitatPopulation || 0).toLocaleString()}
                               </div>
                             </div>
@@ -756,20 +758,20 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                           <div key={obs.Observation_ID} className="card" style={{ background: 'var(--bg-card)' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                               <div>
-                                <span style={{ fontWeight: 700, color: '#ffffff' }}>📍 {obs.Location_Name}, {obs.State}</span>
+                                <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>📍 {obs.Location_Name}, {obs.State}</span>
                                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
                                   Logged by: <strong>{obs.researcherName}</strong> ({obs.Organization})
                                 </div>
                               </div>
                               <div style={{ textAlign: 'right' }}>
                                 <span className="badge badge-role">{obs.Observation_Method}</span>
-                                <div style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontWeight: 700, marginTop: '0.2rem' }}>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: 700, marginTop: '0.2rem' }}>
                                   {obs.Population_Count} individuals
                                 </div>
                               </div>
                             </div>
                             {obs.Notes && (
-                              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', background: 'var(--bg-surface)', padding: '0.5rem', borderRadius: 'var(--radius-sm)' }}>
+                              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', background: '#f8fafc', padding: '0.5rem', borderRadius: 'var(--radius-sm)' }}>
                                 "{obs.Notes}"
                               </p>
                             )}
@@ -794,7 +796,7 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                           <div key={th.Threat_ID} className="card" style={{ background: 'var(--bg-card)' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
                               <div>
-                                <div style={{ fontWeight: 700, color: '#ffffff' }}>⚠️ {th.Threat_Name}</div>
+                                <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>⚠️ {th.Threat_Name}</div>
                                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Classification: {th.Threat_Type}</div>
                               </div>
                               <StatusBadge status={th.Impact_Level || th.Severity} />
@@ -819,7 +821,7 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                         speciesProfile.programs?.map((prog) => (
                           <div key={prog.Program_ID} className="card" style={{ background: 'var(--bg-card)' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
-                              <div style={{ fontWeight: 700, color: '#ffffff' }}>{prog.Program_Name}</div>
+                              <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{prog.Program_Name}</div>
                               <StatusBadge status={prog.Status} />
                             </div>
                             <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
@@ -827,7 +829,7 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                             </p>
                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                               <span>📍 {prog.Location_Name}, {prog.State}</span>
-                              <span style={{ color: 'var(--emerald-400)', fontWeight: 600 }}>
+                              <span style={{ color: 'var(--emerald-600)', fontWeight: 600 }}>
                                 Budget: ₹{Number(prog.Budget).toLocaleString()}
                               </span>
                             </div>

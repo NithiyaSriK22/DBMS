@@ -119,11 +119,11 @@ export const ReportsPage = () => {
           {/* REPORT 1: CONSERVATION STATUS */}
           {activeReport === 'status' && (
             <div className="table-container">
-              <div style={{ padding: '1rem', background: 'var(--bg-surface-elevated)', borderBottom: '1px solid var(--border-medium)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.95rem' }}>
+              <div style={{ padding: '1rem', background: '#f1f7f4', borderBottom: '1px solid #d1e7dd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontWeight: 700, color: '#065f46', fontSize: '0.95rem' }}>
                   Report 1: Species Distribution by Conservation Status (GROUP BY Conservation_Status)
                 </span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                   SQL COUNT(), SUM(), AVG(), MIN(), MAX()
                 </span>
               </div>
@@ -142,8 +142,8 @@ export const ReportsPage = () => {
                   {reportsData.speciesByStatus?.map((r, i) => (
                     <tr key={i}>
                       <td><StatusBadge status={r.Conservation_Status} /></td>
-                      <td style={{ fontWeight: 700, color: '#ffffff' }}>{r.totalSpecies} taxa</td>
-                      <td style={{ color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>{Number(r.totalEstimatedPopulation).toLocaleString()}</td>
+                      <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{r.totalSpecies} taxa</td>
+                      <td style={{ color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>{Number(r.totalEstimatedPopulation).toLocaleString()}</td>
                       <td style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)' }}>{Number(r.avgPopulation).toLocaleString()}</td>
                       <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{Number(r.minPopulation).toLocaleString()}</td>
                       <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{Number(r.maxPopulation).toLocaleString()}</td>
@@ -157,11 +157,11 @@ export const ReportsPage = () => {
           {/* REPORT 2: SPECIES BY HABITAT */}
           {activeReport === 'habitat' && (
             <div className="table-container">
-              <div style={{ padding: '1rem', background: 'var(--bg-surface-elevated)', borderBottom: '1px solid var(--border-medium)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.95rem' }}>
+              <div style={{ padding: '1rem', background: '#f1f7f4', borderBottom: '1px solid #d1e7dd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontWeight: 700, color: '#065f46', fontSize: '0.95rem' }}>
                   Report 2: Biodiversity Richness by Habitat (LEFT JOIN Species_Habitat GROUP BY Habitat_ID)
                 </span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                   SQL COUNT(DISTINCT Species_ID)
                 </span>
               </div>
@@ -179,11 +179,11 @@ export const ReportsPage = () => {
                 <tbody>
                   {reportsData.speciesByHabitat?.map((h, i) => (
                     <tr key={i}>
-                      <td style={{ fontWeight: 600, color: '#ffffff' }}>{h.Habitat_Name}</td>
+                      <td style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{h.Habitat_Name}</td>
                       <td><span className="badge badge-role">{h.Habitat_Type}</span></td>
                       <td><span className="badge badge-active">{h.Protection_Status}</span></td>
                       <td style={{ fontFamily: 'var(--font-mono)' }}>{Number(h.areaSqKm).toLocaleString()}</td>
-                      <td style={{ fontWeight: 700, color: 'var(--emerald-400)' }}>{h.speciesCount} species</td>
+                      <td style={{ fontWeight: 700, color: 'var(--emerald-600)' }}>{h.speciesCount} species</td>
                       <td style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)' }}>{Number(h.totalRecordedPopulation).toLocaleString()}</td>
                     </tr>
                   ))}
@@ -195,11 +195,11 @@ export const ReportsPage = () => {
           {/* REPORT 3: MOST THREATENED SPECIES */}
           {activeReport === 'threatened' && (
             <div className="table-container">
-              <div style={{ padding: '1rem', background: 'var(--bg-surface-elevated)', borderBottom: '1px solid var(--border-medium)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.95rem' }}>
+              <div style={{ padding: '1rem', background: '#f1f7f4', borderBottom: '1px solid #d1e7dd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontWeight: 700, color: '#065f46', fontSize: '0.95rem' }}>
                   Report 3: Most Threatened Species Ranking (Multi-table Join & Critical Threat Sum)
                 </span>
-                <span style={{ fontSize: '0.75rem', color: '#f87171', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: '0.75rem', color: '#dc2626', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                   High Risk Priorities
                 </span>
               </div>
@@ -218,11 +218,11 @@ export const ReportsPage = () => {
                 <tbody>
                   {reportsData.mostThreatened?.map((s, i) => (
                     <tr key={i}>
-                      <td style={{ fontWeight: 700, color: '#ffffff' }}>{s.Common_Name}</td>
-                      <td style={{ color: 'var(--emerald-400)', fontStyle: 'italic' }}>{s.Scientific_Name}</td>
+                      <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{s.Common_Name}</td>
+                      <td style={{ color: 'var(--emerald-600)', fontStyle: 'italic', fontWeight: 600 }}>{s.Scientific_Name}</td>
                       <td><span className="badge badge-role">{s.Species_Type}</span></td>
                       <td><StatusBadge status={s.Conservation_Status} /></td>
-                      <td><span style={{ color: '#f87171', fontWeight: 800 }}>⚠️ {s.criticalThreatsCount} Critical</span></td>
+                      <td><span style={{ color: '#dc2626', fontWeight: 800 }}>⚠️ {s.criticalThreatsCount} Critical</span></td>
                       <td style={{ color: 'var(--text-secondary)' }}>{s.totalThreatsCount} Threats</td>
                       <td style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                         {Number(s.Population_Estimate).toLocaleString()}
@@ -237,11 +237,11 @@ export const ReportsPage = () => {
           {/* REPORT 4: POPULATION TRENDS */}
           {activeReport === 'trends' && (
             <div className="table-container">
-              <div style={{ padding: '1rem', background: 'var(--bg-surface-elevated)', borderBottom: '1px solid var(--border-medium)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.95rem' }}>
+              <div style={{ padding: '1rem', background: '#f1f7f4', borderBottom: '1px solid #d1e7dd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontWeight: 700, color: '#065f46', fontSize: '0.95rem' }}>
                   Report 4: Survey Observations & Field Methods by Year
                 </span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                   strftime('%Y', Observation_Date)
                 </span>
               </div>
@@ -257,10 +257,10 @@ export const ReportsPage = () => {
                 <tbody>
                   {reportsData.populationTrends?.map((p, i) => (
                     <tr key={i}>
-                      <td style={{ fontWeight: 700, color: '#ffffff', fontFamily: 'var(--font-mono)' }}>{p.observationYear}</td>
+                      <td style={{ fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>{p.observationYear}</td>
                       <td><span className="badge badge-role">{p.Observation_Method}</span></td>
                       <td style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{p.totalSurveys} surveys</td>
-                      <td style={{ color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                      <td style={{ color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
                         {Number(p.specimensRecorded).toLocaleString()} specimens
                       </td>
                     </tr>
@@ -273,11 +273,11 @@ export const ReportsPage = () => {
           {/* REPORT 5: THREATS IMPACT */}
           {activeReport === 'threats' && (
             <div className="table-container">
-              <div style={{ padding: '1rem', background: 'var(--bg-surface-elevated)', borderBottom: '1px solid var(--border-medium)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.95rem' }}>
+              <div style={{ padding: '1rem', background: '#f1f7f4', borderBottom: '1px solid #d1e7dd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontWeight: 700, color: '#065f46', fontSize: '0.95rem' }}>
                   Report 5: Ecological Threats Impact Analysis
                 </span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                   SQL JOIN Threat & Species_Threat
                 </span>
               </div>
@@ -294,11 +294,11 @@ export const ReportsPage = () => {
                 <tbody>
                   {reportsData.threatsImpact?.map((th, i) => (
                     <tr key={i}>
-                      <td style={{ fontWeight: 600, color: '#ffffff' }}>{th.Threat_Name}</td>
+                      <td style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{th.Threat_Name}</td>
                       <td><span className="badge badge-role">{th.Threat_Type}</span></td>
                       <td><StatusBadge status={th.Severity} /></td>
                       <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{th.affectedSpeciesCount} species</td>
-                      <td style={{ color: '#f87171', fontWeight: 700 }}>⚠️ {th.endangeredSpeciesAffected} Endangered</td>
+                      <td style={{ color: '#dc2626', fontWeight: 700 }}>⚠️ {th.endangeredSpeciesAffected} Endangered</td>
                     </tr>
                   ))}
                 </tbody>
@@ -309,11 +309,11 @@ export const ReportsPage = () => {
           {/* REPORT 6: CONSERVATION BY REGION */}
           {activeReport === 'region' && (
             <div className="table-container">
-              <div style={{ padding: '1rem', background: 'var(--bg-surface-elevated)', borderBottom: '1px solid var(--border-medium)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.95rem' }}>
+              <div style={{ padding: '1rem', background: '#f1f7f4', borderBottom: '1px solid #d1e7dd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontWeight: 700, color: '#065f46', fontSize: '0.95rem' }}>
                   Report 6: State-wise Conservation Initiatives & Financial Budget Allocation
                 </span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                   JOIN Location & Conservation_Program
                 </span>
               </div>
@@ -330,10 +330,10 @@ export const ReportsPage = () => {
                 <tbody>
                   {reportsData.conservationByRegion?.map((reg, i) => (
                     <tr key={i}>
-                      <td style={{ fontWeight: 700, color: '#ffffff' }}>📍 {reg.region}</td>
+                      <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>📍 {reg.region}</td>
                       <td style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{reg.totalPrograms} Programs</td>
                       <td><span className="badge badge-active">{reg.activePrograms} Active</span></td>
-                      <td style={{ color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                      <td style={{ color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
                         ₹{Number(reg.totalBudgetAllocated).toLocaleString()}
                       </td>
                       <td style={{ color: 'var(--text-secondary)' }}>{reg.totalExecutedActivities} activities</td>
@@ -347,11 +347,11 @@ export const ReportsPage = () => {
           {/* REPORT 7: RESEARCHER PRODUCTIVITY */}
           {activeReport === 'researchers' && (
             <div className="table-container">
-              <div style={{ padding: '1rem', background: 'var(--bg-surface-elevated)', borderBottom: '1px solid var(--border-medium)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.95rem' }}>
+              <div style={{ padding: '1rem', background: '#f1f7f4', borderBottom: '1px solid #d1e7dd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontWeight: 700, color: '#065f46', fontSize: '0.95rem' }}>
                   Report 7: Scientific Field Productivity & Observation Output
                 </span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                   LEFT JOIN Researchers & Species_Observation
                 </span>
               </div>
@@ -370,10 +370,10 @@ export const ReportsPage = () => {
                 <tbody>
                   {reportsData.researcherActivity?.map((res, i) => (
                     <tr key={i}>
-                      <td style={{ fontWeight: 700, color: '#ffffff' }}>{res.Name}</td>
+                      <td style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{res.Name}</td>
                       <td style={{ color: 'var(--text-secondary)' }}>{res.Organization}</td>
                       <td><span className="badge badge-role">{res.Specialization}</span></td>
-                      <td style={{ color: 'var(--emerald-400)', fontWeight: 700 }}>{res.totalSurveysConducted} surveys</td>
+                      <td style={{ color: 'var(--emerald-600)', fontWeight: 700 }}>{res.totalSurveysConducted} surveys</td>
                       <td style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--text-primary)' }}>
                         {Number(res.totalSpecimensDocumented).toLocaleString()}
                       </td>

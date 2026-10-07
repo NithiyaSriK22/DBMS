@@ -187,20 +187,20 @@ export const ResearchersPage = () => {
                         width: '42px',
                         height: '42px',
                         borderRadius: '50%',
-                        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(56, 189, 248, 0.2))',
-                        border: '1px solid var(--border-medium)',
+                        background: '#ecfdf5',
+                        border: '1px solid #a7f3d0',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontWeight: 800,
-                        color: 'var(--emerald-400)',
+                        color: 'var(--emerald-600)',
                       }}
                     >
                       {r.Name.charAt(0)}
                     </div>
                     <div>
-                      <h3 style={{ fontSize: '1.05rem', color: '#ffffff' }}>{r.Name}</h3>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontWeight: 600 }}>
+                      <h3 style={{ fontSize: '1.05rem', color: 'var(--text-primary)' }}>{r.Name}</h3>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: 600 }}>
                         {r.Specialization}
                       </div>
                     </div>
@@ -215,7 +215,7 @@ export const ResearchersPage = () => {
                   <span>{r.Organization}</span>
                 </div>
 
-                <div style={{ fontSize: '0.775rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.25rem', marginTop: '0.5rem', background: 'var(--bg-surface)', padding: '0.6rem', borderRadius: 'var(--radius-sm)' }}>
+                <div style={{ fontSize: '0.775rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.25rem', marginTop: '0.5rem', background: '#f8fafc', padding: '0.6rem', borderRadius: 'var(--radius-sm)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <Mail size={13} />
                     <span>{r.Email}</span>

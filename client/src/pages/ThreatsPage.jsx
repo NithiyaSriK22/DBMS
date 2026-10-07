@@ -250,68 +250,83 @@ export const ThreatsPage = () => {
 
       {/* THREATS TABLE */}
       <div className="table-container">
-        <table className="data-table">
+        <table className="data-table" style={{ minWidth: '980px' }}>
           <thead>
             <tr>
-              <th style={{ width: '60px' }}>ID</th>
-              <th>Threat Name</th>
-              <th>Classification</th>
-              <th>Severity</th>
-              <th>Impacted Species Count</th>
-              <th>Risk Description</th>
-              <th style={{ textAlign: 'right' }}>Actions</th>
+              <th style={{ width: '70px', whiteSpace: 'nowrap' }}>ID</th>
+              <th style={{ minWidth: '220px', whiteSpace: 'nowrap' }}>Threat Name</th>
+              <th style={{ minWidth: '150px', whiteSpace: 'nowrap' }}>Classification</th>
+              <th style={{ minWidth: '140px', whiteSpace: 'nowrap' }}>Severity</th>
+              <th style={{ minWidth: '180px', whiteSpace: 'nowrap' }}>Impacted Species Count</th>
+              <th style={{ minWidth: '240px', whiteSpace: 'nowrap' }}>Risk Description</th>
+              <th style={{ minWidth: '130px', textAlign: 'right', whiteSpace: 'nowrap' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={7} style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                <td colSpan={7} style={{ textAlign: 'center', padding: '3.5rem', color: 'var(--text-muted)' }}>
                   <Loader2 size={24} className="animate-spin" style={{ margin: '0 auto 0.5rem' }} />
                   Loading threat matrix...
                 </td>
               </tr>
             ) : threats.length === 0 ? (
               <tr>
-                <td colSpan={7} style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                <td colSpan={7} style={{ textAlign: 'center', padding: '3.5rem', color: 'var(--text-muted)' }}>
                   No threats found.
                 </td>
               </tr>
             ) : (
               threats.map((t) => (
                 <tr key={t.Threat_ID}>
-                  <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
+                  <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.825rem', whiteSpace: 'nowrap' }}>
                     #{t.Threat_ID}
                   </td>
                   <td>
-                    <div style={{ fontWeight: 600, color: '#ffffff' }}>{t.Threat_Name}</div>
+                    <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.9rem' }}>{t.Threat_Name}</div>
                   </td>
-                  <td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
                     <span className="badge badge-role">{t.Threat_Type}</span>
                   </td>
-                  <td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
                     <StatusBadge status={t.Severity} />
                   </td>
-                  <td>
-                    <span style={{ fontWeight: 700, color: t.Severity === 'Critical' ? '#f87171' : 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                  <td style={{ whiteSpace: 'nowrap' }}>
+                    <span style={{ fontWeight: 700, color: t.Severity === 'Critical' ? '#dc2626' : 'var(--emerald-600)', fontFamily: 'var(--font-mono)' }}>
                       ⚠️ {t.affectedSpeciesCount || 0} species
                     </span>
                   </td>
-                  <td style={{ maxWidth: '280px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                  <td style={{ maxWidth: '280px', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
                     {t.Description || '—'}
                   </td>
-                  <td style={{ textAlign: 'right' }}>
-                    <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
-                      <button className="btn btn-secondary btn-sm" title="View Affected Species" onClick={() => handleOpenView(t.Threat_ID)}>
-                        <Eye size={13} />
+                  <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    <div style={{ display: 'inline-flex', gap: '0.5rem', alignItems: 'center' }}>
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        title="View Affected Species"
+                        onClick={() => handleOpenView(t.Threat_ID)}
+                        style={{ padding: '0.45rem 0.65rem' }}
+                      >
+                        <Eye size={14} />
                       </button>
                       {hasRole('Admin', 'Researcher') && (
-                        <button className="btn btn-secondary btn-sm" title="Edit" onClick={() => handleOpenEdit(t)}>
-                          <Edit2 size={13} />
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          title="Edit"
+                          onClick={() => handleOpenEdit(t)}
+                          style={{ padding: '0.45rem 0.65rem' }}
+                        >
+                          <Edit2 size={14} />
                         </button>
                       )}
                       {hasRole('Admin') && (
-                        <button className="btn btn-danger btn-sm" title="Delete" onClick={() => setDeleteTarget(t)}>
-                          <Trash2 size={13} />
+                        <button
+                          className="btn btn-danger btn-sm"
+                          title="Delete"
+                          onClick={() => setDeleteTarget(t)}
+                          style={{ padding: '0.45rem 0.65rem' }}
+                        >
+                          <Trash2 size={14} />
                         </button>
                       )}
                     </div>
@@ -329,8 +344,8 @@ export const ThreatsPage = () => {
           <div className="modal-content" style={{ maxWidth: '650px' }} onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <ShieldAlert size={20} color="#f87171" />
-                <h3 style={{ fontSize: '1.2rem' }}>{viewThreat.Threat_Name}</h3>
+                <ShieldAlert size={20} color="#dc2626" />
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)' }}>{viewThreat.Threat_Name}</h3>
               </div>
               <button onClick={() => setViewThreat(null)} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
                 <X size={18} />
@@ -360,9 +375,9 @@ export const ThreatsPage = () => {
                     <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>No species currently mapped to this threat.</div>
                   ) : (
                     viewThreat.affectedSpecies?.map((s) => (
-                      <div key={s.Species_ID} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0.75rem', background: 'var(--bg-card)', borderRadius: 'var(--radius-sm)' }}>
+                      <div key={s.Species_ID} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0.75rem', background: '#f8fafc', borderRadius: 'var(--radius-sm)' }}>
                         <div>
-                          <div style={{ fontWeight: 600, color: '#ffffff', fontSize: '0.85rem' }}>{s.Common_Name}</div>
+                          <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.85rem' }}>{s.Common_Name}</div>
                           <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{s.impactDescription || 'High degradation impact'}</div>
                         </div>
                         <StatusBadge status={s.Impact_Level || s.Conservation_Status} />

@@ -196,72 +196,81 @@ export const LocationsPage = () => {
 
       {/* LOCATIONS TABLE */}
       <div className="table-container">
-        <table className="data-table">
+        <table className="data-table" style={{ minWidth: '980px' }}>
           <thead>
             <tr>
-              <th style={{ width: '60px' }}>ID</th>
-              <th>Location Name</th>
-              <th>State / Country</th>
-              <th>Linked Habitat (FK)</th>
-              <th>GPS Coordinates</th>
-              <th>Activity Count</th>
-              <th style={{ textAlign: 'right' }}>Actions</th>
+              <th style={{ width: '70px', whiteSpace: 'nowrap' }}>ID</th>
+              <th style={{ minWidth: '220px', whiteSpace: 'nowrap' }}>Location Name</th>
+              <th style={{ minWidth: '160px', whiteSpace: 'nowrap' }}>State / Country</th>
+              <th style={{ minWidth: '180px', whiteSpace: 'nowrap' }}>Linked Habitat (FK)</th>
+              <th style={{ minWidth: '180px', whiteSpace: 'nowrap' }}>GPS Coordinates</th>
+              <th style={{ minWidth: '160px', whiteSpace: 'nowrap' }}>Activity Count</th>
+              <th style={{ minWidth: '120px', textAlign: 'right', whiteSpace: 'nowrap' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={7} style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                <td colSpan={7} style={{ textAlign: 'center', padding: '3.5rem', color: 'var(--text-muted)' }}>
                   <Loader2 size={24} className="animate-spin" style={{ margin: '0 auto 0.5rem' }} />
                   Loading geographical coordinates...
                 </td>
               </tr>
             ) : locations.length === 0 ? (
               <tr>
-                <td colSpan={7} style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                <td colSpan={7} style={{ textAlign: 'center', padding: '3.5rem', color: 'var(--text-muted)' }}>
                   No location records found.
                 </td>
               </tr>
             ) : (
               locations.map((loc) => (
                 <tr key={loc.Location_ID}>
-                  <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
+                  <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.825rem', whiteSpace: 'nowrap' }}>
                     #{loc.Location_ID}
                   </td>
                   <td>
-                    <div style={{ fontWeight: 600, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <MapPin size={15} color="var(--emerald-400)" />
+                    <div style={{ fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <MapPin size={16} color="var(--emerald-600)" />
                       <span>{loc.Location_Name}</span>
                     </div>
                   </td>
-                  <td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>{loc.State}, {loc.Country}</span>
                   </td>
-                  <td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
                     <span className="badge badge-role" title={loc.Habitat_Type}>
                       🌳 {loc.Habitat_Name}
                     </span>
                   </td>
-                  <td style={{ fontFamily: 'var(--font-mono)', fontSize: '0.775rem', color: 'var(--text-muted)' }}>
+                  <td style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
                     {Number(loc.Latitude).toFixed(4)}° N, {Number(loc.Longitude).toFixed(4)}° E
                   </td>
-                  <td>
-                    <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                      <span>🐾 {loc.speciesCount || 0} species</span>
-                      <span>•</span>
-                      <span>👁️ {loc.observationCount || 0} obs</span>
+                  <td style={{ whiteSpace: 'nowrap' }}>
+                    <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.775rem', color: 'var(--text-muted)' }}>
+                      <span style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>🐾 {loc.speciesCount || 0} species</span>
+                      <span style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>👁️ {loc.observationCount || 0} obs</span>
                     </div>
                   </td>
-                  <td style={{ textAlign: 'right' }}>
-                    <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
+                  <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    <div style={{ display: 'inline-flex', gap: '0.5rem', alignItems: 'center' }}>
                       {hasRole('Admin', 'Conservation Officer') && (
-                        <button className="btn btn-secondary btn-sm" title="Edit" onClick={() => handleOpenEdit(loc)}>
-                          <Edit2 size={13} />
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          title="Edit"
+                          onClick={() => handleOpenEdit(loc)}
+                          style={{ padding: '0.45rem 0.65rem' }}
+                        >
+                          <Edit2 size={14} />
                         </button>
                       )}
                       {hasRole('Admin') && (
-                        <button className="btn btn-danger btn-sm" title="Delete" onClick={() => setDeleteTarget(loc)}>
-                          <Trash2 size={13} />
+                        <button
+                          className="btn btn-danger btn-sm"
+                          title="Delete"
+                          onClick={() => setDeleteTarget(loc)}
+                          style={{ padding: '0.45rem 0.65rem' }}
+                        >
+                          <Trash2 size={14} />
                         </button>
                       )}
                     </div>

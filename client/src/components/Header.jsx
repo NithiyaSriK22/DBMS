@@ -7,32 +7,34 @@ export const Header = ({ title, subtitle, onOpenSearch, onToggleSidebar }) => {
 
   return (
     <header
+      className="app-header"
       style={{
-        height: '70px',
-        padding: '0 2rem',
+        minHeight: '70px',
+        padding: '0.75rem clamp(1rem, 2.5vw, 2rem)',
         background: 'var(--bg-surface)',
         borderBottom: '1px solid var(--border-subtle)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
+        position: 'relative',
+        zIndex: 10,
+        flexWrap: 'wrap',
+        gap: '0.75rem 1rem',
       }}
     >
       {/* Left: Mobile Toggle & Page Title */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: '200px' }}>
         <button
           onClick={onToggleSidebar}
-          className="btn btn-secondary btn-sm"
-          style={{ display: 'none' }} // Visible on mobile via CSS media query
+          className="btn btn-secondary btn-sm mobile-sidebar-toggle"
           id="mobile-sidebar-toggle"
+          aria-label="Toggle navigation menu"
         >
           <Menu size={18} />
         </button>
 
         <div>
-          <h1 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.2 }}>
             {title}
           </h1>
           {subtitle && (
@@ -44,7 +46,7 @@ export const Header = ({ title, subtitle, onOpenSearch, onToggleSidebar }) => {
       </div>
 
       {/* Right: Search, Database Status, Role Badge */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
         {/* Global Search Trigger */}
         <button
           onClick={onOpenSearch}
@@ -94,15 +96,15 @@ export const Header = ({ title, subtitle, onOpenSearch, onToggleSidebar }) => {
             alignItems: 'center',
             gap: '0.4rem',
             padding: '0.4rem 0.75rem',
-            background: 'rgba(16, 185, 129, 0.08)',
-            border: '1px solid var(--border-subtle)',
+            background: '#ecfdf5',
+            border: '1px solid #a7f3d0',
             borderRadius: 'var(--radius-full)',
             fontSize: '0.75rem',
-            color: 'var(--emerald-300)',
+            color: '#065f46',
           }}
           title="Relational 3NF Schema & Foreign Keys Enforced"
         >
-          <Database size={13} color="var(--emerald-400)" />
+          <Database size={13} color="#059669" />
           <span style={{ fontWeight: 600 }}>SQL Relational (3NF)</span>
         </div>
 
@@ -121,7 +123,7 @@ export const Header = ({ title, subtitle, onOpenSearch, onToggleSidebar }) => {
             color: 'var(--text-primary)',
           }}
         >
-          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--emerald-400)' }} />
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#059669' }} />
           <span>{user?.role || 'Viewer'}</span>
         </div>
       </div>

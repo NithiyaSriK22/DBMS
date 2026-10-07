@@ -216,82 +216,92 @@ export const ObservationsPage = () => {
 
       {/* OBSERVATIONS TABLE */}
       <div className="table-container">
-        <table className="data-table">
+        <table className="data-table" style={{ minWidth: '1080px' }}>
           <thead>
             <tr>
-              <th style={{ width: '60px' }}>ID</th>
-              <th>Species (FK)</th>
-              <th>Location (FK)</th>
-              <th>Researcher (FK)</th>
-              <th>Date</th>
-              <th>Count</th>
-              <th>Method</th>
-              <th>Field Notes</th>
-              <th style={{ textAlign: 'right' }}>Actions</th>
+              <th style={{ width: '70px', whiteSpace: 'nowrap' }}>ID</th>
+              <th style={{ minWidth: '200px', whiteSpace: 'nowrap' }}>Species (FK)</th>
+              <th style={{ minWidth: '180px', whiteSpace: 'nowrap' }}>Location (FK)</th>
+              <th style={{ minWidth: '180px', whiteSpace: 'nowrap' }}>Researcher (FK)</th>
+              <th style={{ minWidth: '120px', whiteSpace: 'nowrap' }}>Date</th>
+              <th style={{ minWidth: '90px', whiteSpace: 'nowrap' }}>Count</th>
+              <th style={{ minWidth: '140px', whiteSpace: 'nowrap' }}>Method</th>
+              <th style={{ minWidth: '220px', whiteSpace: 'nowrap' }}>Field Notes</th>
+              <th style={{ minWidth: '120px', textAlign: 'right', whiteSpace: 'nowrap' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={9} style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                <td colSpan={9} style={{ textAlign: 'center', padding: '3.5rem', color: 'var(--text-muted)' }}>
                   <Loader2 size={24} className="animate-spin" style={{ margin: '0 auto 0.5rem' }} />
                   Loading field observations...
                 </td>
               </tr>
             ) : observations.length === 0 ? (
               <tr>
-                <td colSpan={9} style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                <td colSpan={9} style={{ textAlign: 'center', padding: '3.5rem', color: 'var(--text-muted)' }}>
                   No observations logged yet.
                 </td>
               </tr>
             ) : (
               observations.map((obs) => (
                 <tr key={obs.Observation_ID}>
-                  <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
+                  <td style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.825rem', whiteSpace: 'nowrap' }}>
                     #{obs.Observation_ID}
                   </td>
                   <td>
                     <div>
-                      <div style={{ fontWeight: 600, color: '#ffffff' }}>{obs.speciesName}</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontStyle: 'italic' }}>
+                      <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.9rem' }}>{obs.speciesName}</div>
+                      <div style={{ fontSize: '0.775rem', color: 'var(--emerald-600)', fontStyle: 'italic', fontWeight: 600 }}>
                         {obs.Scientific_Name}
                       </div>
                     </div>
                   </td>
                   <td>
                     <div>
-                      <div style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{obs.Location_Name}</div>
+                      <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{obs.Location_Name}</div>
                       <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{obs.State} ({obs.Habitat_Name})</div>
                     </div>
                   </td>
                   <td>
                     <div>
-                      <div style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{obs.researcherName}</div>
+                      <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{obs.researcherName}</div>
                       <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{obs.Organization}</div>
                     </div>
                   </td>
-                  <td style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', whiteSpace: 'nowrap' }}>
+                  <td style={{ color: 'var(--text-secondary)', fontSize: '0.825rem', whiteSpace: 'nowrap' }}>
                     {obs.Observation_Date}
                   </td>
-                  <td style={{ fontWeight: 700, color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>
+                  <td style={{ fontWeight: 700, color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>
                     {obs.Population_Count}
                   </td>
-                  <td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
                     <span className="badge badge-role">{obs.Observation_Method}</span>
                   </td>
-                  <td style={{ maxWidth: '220px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                  <td style={{ maxWidth: '240px', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
                     {obs.Notes || '—'}
                   </td>
-                  <td style={{ textAlign: 'right' }}>
-                    <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
+                  <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    <div style={{ display: 'inline-flex', gap: '0.5rem', alignItems: 'center' }}>
                       {hasRole('Admin', 'Researcher') && (
-                        <button className="btn btn-secondary btn-sm" title="Edit" onClick={() => handleOpenEdit(obs)}>
-                          <Edit2 size={13} />
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          title="Edit"
+                          onClick={() => handleOpenEdit(obs)}
+                          style={{ padding: '0.45rem 0.65rem' }}
+                        >
+                          <Edit2 size={14} />
                         </button>
                       )}
                       {hasRole('Admin', 'Researcher') && (
-                        <button className="btn btn-danger btn-sm" title="Delete" onClick={() => setDeleteTarget(obs)}>
-                          <Trash2 size={13} />
+                        <button
+                          className="btn btn-danger btn-sm"
+                          title="Delete"
+                          onClick={() => setDeleteTarget(obs)}
+                          style={{ padding: '0.45rem 0.65rem' }}
+                        >
+                          <Trash2 size={14} />
                         </button>
                       )}
                     </div>

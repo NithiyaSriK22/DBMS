@@ -3,29 +3,29 @@ import React from 'react';
 export const StatCard = ({ title, value, icon: Icon, color = 'emerald', subtitle, change }) => {
   const colorMap = {
     emerald: {
-      bg: 'rgba(16, 185, 129, 0.12)',
-      border: 'rgba(16, 185, 129, 0.25)',
-      text: '#34d399',
+      bg: '#ecfdf5',
+      border: '#a7f3d0',
+      text: '#059669',
     },
     amber: {
-      bg: 'rgba(245, 158, 11, 0.12)',
-      border: 'rgba(245, 158, 11, 0.25)',
-      text: '#fbbf24',
+      bg: '#fffbeb',
+      border: '#fde68a',
+      text: '#d97706',
     },
     red: {
-      bg: 'rgba(239, 68, 68, 0.12)',
-      border: 'rgba(239, 68, 68, 0.25)',
-      text: '#f87171',
+      bg: '#fef2f2',
+      border: '#fecaca',
+      text: '#dc2626',
     },
     blue: {
-      bg: 'rgba(56, 189, 248, 0.12)',
-      border: 'rgba(56, 189, 248, 0.25)',
-      text: '#38bdf8',
+      bg: '#f0f9ff',
+      border: '#bae6fd',
+      text: '#0284c7',
     },
     purple: {
-      bg: 'rgba(192, 132, 252, 0.12)',
-      border: 'rgba(192, 132, 252, 0.25)',
-      text: '#c084fc',
+      bg: '#faf5ff',
+      border: '#e9d5ff',
+      text: '#9333ea',
     },
   };
 

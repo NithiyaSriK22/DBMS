@@ -251,19 +251,19 @@ export const ConservationPage = () => {
         <div className="grid-3">
           <div className="card" style={{ background: 'var(--bg-surface)' }}>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Total Programs</span>
-            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff', marginTop: '0.2rem' }}>
+            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '0.2rem' }}>
               {stats.totalPrograms} Initiatives
             </div>
           </div>
           <div className="card" style={{ background: 'var(--bg-surface)' }}>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Active Status</span>
-            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--emerald-400)', marginTop: '0.2rem' }}>
+            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--emerald-600)', marginTop: '0.2rem' }}>
               {stats.activePrograms} In Progress
             </div>
           </div>
           <div className="card" style={{ background: 'var(--bg-surface)' }}>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Cumulative Budget</span>
-            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#38bdf8', marginTop: '0.2rem' }}>
+            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0284c7', marginTop: '0.2rem' }}>
               ₹{(Number(stats.totalBudget) / 10000000).toFixed(1)} Crores
             </div>
           </div>
@@ -323,7 +323,7 @@ export const ConservationPage = () => {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem' }}>
-                    <h3 style={{ fontSize: '1.15rem', color: '#ffffff' }}>{prog.Program_Name}</h3>
+                    <h3 style={{ fontSize: '1.15rem', color: 'var(--text-primary)' }}>{prog.Program_Name}</h3>
                     <StatusBadge status={prog.Status} />
                   </div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
@@ -336,7 +336,7 @@ export const ConservationPage = () => {
                 </div>
 
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>
+                  <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)' }}>
                     ₹{Number(prog.Budget).toLocaleString()}
                   </div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -394,7 +394,7 @@ export const ConservationPage = () => {
           <div className="modal-content" style={{ maxWidth: '750px' }} onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <div>
-                <h3 style={{ fontSize: '1.2rem', color: '#ffffff' }}>{viewProgram.Program_Name}</h3>
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)' }}>{viewProgram.Program_Name}</h3>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>📍 {viewProgram.Location_Name}, {viewProgram.State}</div>
               </div>
               <button onClick={() => setViewProgram(null)} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
@@ -407,12 +407,12 @@ export const ConservationPage = () => {
                 <div style={{ fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '0.35rem' }}>
                   Conservation Objective
                 </div>
-                <p style={{ color: '#ffffff', fontSize: '0.9rem', lineHeight: '1.5' }}>{viewProgram.Objective}</p>
+                <p style={{ color: 'var(--text-primary)', fontSize: '0.9rem', lineHeight: '1.5' }}>{viewProgram.Objective}</p>
               </div>
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--emerald-400)' }}>
+                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--emerald-600)' }}>
                     Executed Field Activities ({viewProgram.activities?.length || 0})
                   </h4>
                   {hasRole('Admin', 'Conservation Officer') && (
@@ -438,7 +438,7 @@ export const ConservationPage = () => {
                     viewProgram.activities?.map((act) => (
                       <div key={act.Activity_ID} className="card" style={{ background: 'var(--bg-card)', borderLeft: '3px solid var(--emerald-500)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
-                          <div style={{ fontWeight: 700, color: '#ffffff' }}>{act.Activity_Name}</div>
+                          <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{act.Activity_Name}</div>
                           <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>🗓️ {act.Activity_Date}</span>
                         </div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', marginBottom: '0.4rem' }}>

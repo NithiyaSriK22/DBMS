@@ -159,7 +159,7 @@ export const ConservationStatusBarChart = ({ data = [] }) => {
               <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{item.status}</span>
               <span style={{ color, fontWeight: 700 }}>{item.count} species</span>
             </div>
-            <div style={{ height: '8px', background: 'var(--bg-surface-elevated)', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
+            <div style={{ height: '8px', background: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
               <div
                 style={{
                   width: `${pct}%`,
@@ -193,16 +193,16 @@ export const RegionalDistributionChart = ({ data = [] }) => {
           <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem' }}>
               <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{item.locationName}</span>
-              <span style={{ color: 'var(--emerald-400)', fontSize: '0.75rem' }}>
+              <span style={{ color: 'var(--emerald-600)', fontSize: '0.75rem', fontWeight: 600 }}>
                 {item.speciesCount} species • {item.observationCount} observations
               </span>
             </div>
-            <div style={{ height: '7px', background: 'var(--bg-surface-elevated)', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
+            <div style={{ height: '7px', background: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
               <div
                 style={{
                   width: `${pct}%`,
                   height: '100%',
-                  background: 'linear-gradient(90deg, #10b981, #38bdf8)',
+                  background: 'linear-gradient(90deg, #059669, #0284c7)',
                   borderRadius: 'var(--radius-full)',
                   transition: 'width 0.4s ease',
                 }}
@@ -241,8 +241,8 @@ export const PopulationTrendAreaChart = ({ data = [] }) => {
       <svg viewBox={`0 0 ${width} ${height}`} width="100%" height="100%" style={{ overflow: 'visible' }}>
         <defs>
           <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+            <stop offset="0%" stopColor="#059669" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#059669" stopOpacity="0.0" />
           </linearGradient>
         </defs>
 
@@ -254,12 +254,12 @@ export const PopulationTrendAreaChart = ({ data = [] }) => {
         <path d={areaD} fill="url(#trendGrad)" />
 
         {/* Line */}
-        <path d={pathD} fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" />
+        <path d={pathD} fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" />
 
         {/* Data points */}
         {points.map((p, i) => (
           <g key={i}>
-            <circle cx={p.x} cy={p.y} r="4" fill="#071510" stroke="#34d399" strokeWidth="2" />
+            <circle cx={p.x} cy={p.y} r="4" fill="#ffffff" stroke="#059669" strokeWidth="2.5" />
           </g>
         ))}
       </svg>
@@ -289,11 +289,11 @@ export const MajorThreatsChart = ({ data = [] }) => {
           <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem' }}>
               <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{item.threatName}</span>
-              <span style={{ color: isCritical ? '#f87171' : '#fb923c', fontWeight: 700 }}>
+              <span style={{ color: isCritical ? '#dc2626' : '#d97706', fontWeight: 700 }}>
                 {item.affectedSpeciesCount} species
               </span>
             </div>
-            <div style={{ height: '7px', background: 'var(--bg-surface-elevated)', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
+            <div style={{ height: '7px', background: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
               <div
                 style={{
                   width: `${pct}%`,

@@ -9,7 +9,6 @@ import {
   ShieldAlert,
   HeartHandshake,
   BarChart3,
-  Terminal,
   Settings,
   LogOut,
   X,
@@ -30,7 +29,6 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
     { id: 'threats', label: 'Threat Analysis', icon: ShieldAlert },
     { id: 'conservation', label: 'Conservation', icon: HeartHandshake },
     { id: 'reports', label: 'Reports & Analytics', icon: BarChart3 },
-    { id: 'sql-lab', label: 'DBMS Viva / SQL Lab', icon: Terminal, highlight: true },
     { id: 'settings', label: 'Settings & Profile', icon: Settings },
   ];
 
@@ -51,6 +49,7 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
       )}
 
       <aside
+        className={`app-sidebar ${isOpen ? 'open' : ''}`}
         style={{
           width: '260px',
           height: '100vh',
@@ -61,8 +60,7 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
           position: 'sticky',
           top: 0,
           zIndex: 100,
-          transition: 'transform 0.3s ease',
-          ...(isOpen ? { transform: 'translateX(0)' } : {}),
+          transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         {/* Brand Header */}
@@ -81,12 +79,12 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
                 width: '36px',
                 height: '36px',
                 borderRadius: 'var(--radius-md)',
-                background: 'linear-gradient(135deg, #10b981 0%, #047857 100%)',
+                background: 'linear-gradient(135deg, #057a44 0%, #034426 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#ffffff',
-                boxShadow: '0 2px 10px rgba(16, 185, 129, 0.4)',
+                boxShadow: '0 2px 10px rgba(4, 92, 52, 0.35)',
               }}
             >
               🌿
@@ -95,7 +93,7 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
               <div style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
                 BIODIVERSITY
               </div>
-              <div style={{ fontSize: '0.675rem', color: 'var(--emerald-400)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.675rem', color: 'var(--emerald-600)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                 DBMS Platform
               </div>
             </div>
@@ -134,10 +132,10 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
                   gap: '0.75rem',
                   padding: '0.65rem 0.85rem',
                   borderRadius: 'var(--radius-md)',
-                  background: isActive ? 'linear-gradient(90deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%)' : 'transparent',
-                  border: isActive ? '1px solid var(--border-bright)' : '1px solid transparent',
-                  color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
-                  fontWeight: isActive ? 600 : 500,
+                  background: isActive ? '#ecfdf5' : 'transparent',
+                  border: isActive ? '1px solid #a7f3d0' : '1px solid transparent',
+                  color: isActive ? 'var(--emerald-700)' : 'var(--text-secondary)',
+                  fontWeight: isActive ? 700 : 500,
                   fontSize: '0.85rem',
                   cursor: 'pointer',
                   textAlign: 'left',
@@ -146,8 +144,8 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.background = 'var(--bg-surface-elevated)';
-                    e.currentTarget.style.color = 'var(--text-primary)';
+                    e.currentTarget.style.background = '#f8fafc';
+                    e.currentTarget.style.color = '#034426';
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -157,22 +155,8 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
                   }
                 }}
               >
-                <Icon size={18} color={isActive ? 'var(--emerald-400)' : item.highlight ? '#fbbf24' : 'var(--text-muted)'} />
+                <Icon size={18} color={isActive ? 'var(--emerald-600)' : 'var(--text-muted)'} />
                 <span style={{ flex: 1 }}>{item.label}</span>
-                {item.highlight && (
-                  <span
-                    style={{
-                      fontSize: '0.65rem',
-                      background: 'rgba(251, 191, 36, 0.15)',
-                      color: '#fbbf24',
-                      padding: '0.15rem 0.4rem',
-                      borderRadius: 'var(--radius-sm)',
-                      fontWeight: 700,
-                    }}
-                  >
-                    VIVA
-                  </span>
-                )}
               </button>
             );
           })}
@@ -183,7 +167,7 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
           style={{
             padding: '1rem',
             borderTop: '1px solid var(--border-subtle)',
-            background: 'var(--bg-card)',
+            background: '#f8fafc',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
@@ -192,13 +176,13 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
-                background: 'var(--bg-surface-elevated)',
-                border: '1px solid var(--border-medium)',
+                background: '#ecfdf5',
+                border: '1px solid #a7f3d0',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 700,
-                color: 'var(--emerald-400)',
+                color: '#047857',
                 fontSize: '0.9rem',
               }}
             >
@@ -208,7 +192,7 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
               <div style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {user?.name || 'User'}
               </div>
-              <div style={{ fontSize: '0.7rem', color: 'var(--emerald-400)', fontWeight: 600 }}>
+              <div style={{ fontSize: '0.7rem', color: 'var(--emerald-600)', fontWeight: 600 }}>
                 {user?.role || 'Viewer'}
               </div>
             </div>

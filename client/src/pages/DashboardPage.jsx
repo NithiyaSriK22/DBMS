@@ -282,14 +282,14 @@ export const DashboardPage = ({ onNavigate }) => {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
-                  <div style={{ fontWeight: 600, fontSize: '0.875rem', color: '#ffffff' }}>
+                  <div style={{ fontWeight: 600, fontSize: '0.875rem', color: 'var(--text-primary)' }}>
                     {prog.Program_Name}
                   </div>
                   <span className="badge badge-active">Active</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                   <span>📍 {prog.Location_Name}, {prog.State}</span>
-                  <span style={{ color: 'var(--emerald-400)', fontWeight: 600 }}>
+                  <span style={{ color: 'var(--emerald-600)', fontWeight: 600 }}>
                     Budget: ₹{(Number(prog.Budget) / 10000000).toFixed(1)} Cr
                   </span>
                 </div>

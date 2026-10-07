@@ -107,7 +107,7 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
           >
             🌿
           </div>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#ffffff' }}>
+          <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)' }}>
             {isRegister ? 'Create DBMS Account' : 'Biodiversity System Portal'}
           </h2>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
@@ -122,7 +122,7 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            background: 'var(--bg-card)',
+            background: '#f1f5f9',
             padding: '0.3rem',
             borderRadius: 'var(--radius-md)',
             marginBottom: '1.5rem',
@@ -136,8 +136,8 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
               padding: '0.5rem',
               borderRadius: 'var(--radius-sm)',
               border: 'none',
-              background: !isRegister ? 'var(--emerald-600)' : 'transparent',
-              color: !isRegister ? '#ffffff' : 'var(--text-muted)',
+              background: !isRegister ? '#059669' : 'transparent',
+              color: !isRegister ? '#ffffff' : 'var(--text-secondary)',
               fontWeight: 600,
               fontSize: '0.85rem',
               cursor: 'pointer',
@@ -153,8 +153,8 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
               padding: '0.5rem',
               borderRadius: 'var(--radius-sm)',
               border: 'none',
-              background: isRegister ? 'var(--emerald-600)' : 'transparent',
-              color: isRegister ? '#ffffff' : 'var(--text-muted)',
+              background: isRegister ? '#059669' : 'transparent',
+              color: isRegister ? '#ffffff' : 'var(--text-secondary)',
               fontWeight: 600,
               fontSize: '0.85rem',
               cursor: 'pointer',

@@ -204,8 +204,8 @@ export const HabitatsPage = () => {
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1.15rem', color: '#ffffff', marginBottom: '0.35rem' }}>{h.Habitat_Name}</h3>
-                <div style={{ fontSize: '0.8rem', color: 'var(--emerald-400)', fontWeight: 600, marginBottom: '0.6rem' }}>
+                <h3 style={{ fontSize: '1.15rem', color: 'var(--text-primary)', marginBottom: '0.35rem' }}>{h.Habitat_Name}</h3>
+                <div style={{ fontSize: '0.8rem', color: 'var(--emerald-600)', fontWeight: 600, marginBottom: '0.6rem' }}>
                   {h.Habitat_Type}
                 </div>
 
@@ -213,7 +213,7 @@ export const HabitatsPage = () => {
                   {h.Description || 'No detailed ecological description provided.'}
                 </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', background: 'var(--bg-surface)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', background: '#f8fafc', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
                   <div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Cover Area</div>
                     <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)' }}>
@@ -263,8 +263,8 @@ export const HabitatsPage = () => {
           <div className="modal-content" style={{ maxWidth: '650px' }} onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Trees size={20} color="var(--emerald-400)" />
-                <h3 style={{ fontSize: '1.2rem' }}>{viewHabitat.Habitat_Name}</h3>
+                <Trees size={20} color="var(--emerald-600)" />
+                <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)' }}>{viewHabitat.Habitat_Name}</h3>
               </div>
               <button onClick={() => setViewHabitat(null)} style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
                 <X size={18} />
@@ -275,11 +275,11 @@ export const HabitatsPage = () => {
               <div className="grid-3">
                 <div className="card" style={{ background: 'var(--bg-card)' }}>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Biome Type</div>
-                  <div style={{ fontWeight: 700, color: 'var(--emerald-400)', marginTop: '0.25rem' }}>{viewHabitat.Habitat_Type}</div>
+                  <div style={{ fontWeight: 700, color: 'var(--emerald-600)', marginTop: '0.25rem' }}>{viewHabitat.Habitat_Type}</div>
                 </div>
                 <div className="card" style={{ background: 'var(--bg-card)' }}>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Total Area</div>
-                  <div style={{ fontWeight: 700, color: '#ffffff', marginTop: '0.25rem' }}>{Number(viewHabitat.Area).toLocaleString()} km²</div>
+                  <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginTop: '0.25rem' }}>{Number(viewHabitat.Area).toLocaleString()} km²</div>
                 </div>
                 <div className="card" style={{ background: 'var(--bg-card)' }}>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Protection Status</div>
@@ -296,9 +296,9 @@ export const HabitatsPage = () => {
                     <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>No species currently linked in Species_Habitat junction table.</div>
                   ) : (
                     viewHabitat.species?.map((s) => (
-                      <div key={s.Species_ID} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0.75rem', background: 'var(--bg-card)', borderRadius: 'var(--radius-sm)' }}>
-                        <span style={{ fontWeight: 600, color: '#ffffff', fontSize: '0.85rem' }}>{s.Common_Name} ({s.Scientific_Name})</span>
-                        <span style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontWeight: 600 }}>Pop: {Number(s.habitatPopulation || 0).toLocaleString()}</span>
+                      <div key={s.Species_ID} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0.75rem', background: '#f8fafc', borderRadius: 'var(--radius-sm)' }}>
+                        <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.85rem' }}>{s.Common_Name} ({s.Scientific_Name})</span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: 600 }}>Pop: {Number(s.habitatPopulation || 0).toLocaleString()}</span>
                       </div>
                     ))
                   )}

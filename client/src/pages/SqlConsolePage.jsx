@@ -165,10 +165,10 @@ export const SqlConsolePage = () => {
         {/* Right: Code Viewer & Results Grid */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {/* SQL Editor / Query View Box */}
-          <div className="card" style={{ background: '#08140f', border: '1px solid var(--border-medium)', padding: '1.25rem' }}>
+          <div className="card" style={{ background: '#ffffff', border: '1px solid var(--border-subtle)', padding: '1.25rem', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Terminal size={16} color="var(--emerald-400)" />
+                <Terminal size={16} color="var(--emerald-600)" />
                 <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
                   {activeTab === 'preset' ? currentQuery?.title : 'Custom Interactive SQL Terminal'}
                 </span>
@@ -176,7 +176,7 @@ export const SqlConsolePage = () => {
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 {executionResult && (
-                  <span style={{ fontSize: '0.75rem', color: 'var(--emerald-300)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', display: 'flex', alignItems: 'center', gap: '0.3rem', fontWeight: 600 }}>
                     <Clock size={12} />
                     <span>{executionResult.executionTimeMs}</span>
                   </span>
@@ -197,14 +197,14 @@ export const SqlConsolePage = () => {
               <div>
                 <pre
                   style={{
-                    background: '#040c08',
+                    background: '#06281c',
                     padding: '1rem',
                     borderRadius: 'var(--radius-sm)',
-                    color: '#86efac',
+                    color: '#6ee7b7',
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.825rem',
                     overflowX: 'auto',
-                    border: '1px solid var(--border-subtle)',
+                    border: '1px solid rgba(5, 150, 105, 0.2)',
                     lineHeight: '1.5',
                   }}
                 >
@@ -212,7 +212,7 @@ export const SqlConsolePage = () => {
                 </pre>
 
                 <div style={{ marginTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.775rem', color: 'var(--text-secondary)' }}>
-                  <BookOpen size={14} color="#fbbf24" />
+                  <BookOpen size={14} color="#d97706" />
                   <span><strong>DBMS Concept:</strong> {currentQuery?.concept} — {currentQuery?.description}</span>
                 </div>
               </div>
@@ -224,8 +224,9 @@ export const SqlConsolePage = () => {
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.85rem',
                     minHeight: '120px',
-                    background: '#040c08',
-                    color: '#86efac',
+                    background: '#06281c',
+                    color: '#6ee7b7',
+                    border: '1px solid rgba(5, 150, 105, 0.2)',
                   }}
                   value={customSql}
                   onChange={(e) => setCustomSql(e.target.value)}
@@ -240,12 +241,12 @@ export const SqlConsolePage = () => {
 
           {/* Results Area */}
           <div className="table-container" style={{ minHeight: '260px' }}>
-            <div style={{ padding: '0.75rem 1rem', background: 'var(--bg-surface-elevated)', borderBottom: '1px solid var(--border-medium)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontWeight: 700, fontSize: '0.85rem', color: '#ffffff' }}>
+            <div style={{ padding: '0.75rem 1rem', background: '#f1f7f4', borderBottom: '1px solid #d1e7dd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontWeight: 700, fontSize: '0.85rem', color: '#065f46' }}>
                 Query Execution Results {executionResult ? `(${executionResult.rowCount} rows returned)` : ''}
               </span>
               {executionResult && (
-                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-400)', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                   Latency: {executionResult.executionTimeMs}
                 </span>
               )}

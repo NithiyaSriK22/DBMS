@@ -17,7 +17,6 @@ import { ResearchersPage } from './pages/ResearchersPage';
 import { ThreatsPage } from './pages/ThreatsPage';
 import { ConservationPage } from './pages/ConservationPage';
 import { ReportsPage } from './pages/ReportsPage';
-import { SqlConsolePage } from './pages/SqlConsolePage';
 import { SettingsPage } from './pages/SettingsPage';
 
 function MainApp() {
@@ -72,7 +71,6 @@ function MainApp() {
     threats: { title: 'Threat Risk Analysis', subtitle: 'Ecological and anthropogenic extinction pressures' },
     conservation: { title: 'Conservation Initiatives', subtitle: 'State recovery programs and milestone activities' },
     reports: { title: 'Reports & Analytics', subtitle: 'SQL-driven aggregated reports with CSV exports' },
-    'sql-lab': { title: 'DBMS Viva / SQL Lab', subtitle: 'Interactive execution of 10 relational DBMS queries' },
     settings: { title: 'System Settings', subtitle: 'Profile, RBAC permissions, and database diagnostics' },
   };
 
@@ -136,7 +134,6 @@ function MainApp() {
           {activeTab === 'threats' && <ThreatsPage />}
           {activeTab === 'conservation' && <ConservationPage />}
           {activeTab === 'reports' && <ReportsPage />}
-          {activeTab === 'sql-lab' && <SqlConsolePage />}
           {activeTab === 'settings' && <SettingsPage />}
         </main>
       </div>
