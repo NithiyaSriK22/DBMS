@@ -108,7 +108,7 @@ app.use((req, res, next) => {
 
 // Global Error Handler
 app.use((err, req, res, next) => {
-  console.error('Unhandled server error:', err);
+  console.error('Unhandled server error:', err.message || err);
   res.status(err.status || 500).json({
     success: false,
     message: err.message || 'An unexpected internal server error occurred.',
