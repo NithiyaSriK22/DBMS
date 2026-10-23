@@ -53,7 +53,7 @@ exports.globalSearch = async (req, res) => {
       SELECT 
         Location_ID AS id,
         Location_Name AS title,
-        State || ', ' || Country AS subtitle,
+        CONCAT(State, ', ', Country) AS subtitle,
         'Location' AS tag,
         'Active' AS badge,
         'location' AS entityType
@@ -69,7 +69,7 @@ exports.globalSearch = async (req, res) => {
         Name AS title,
         Organization AS subtitle,
         Specialization AS tag,
-        Experience_Years || ' yrs exp' AS badge,
+        CONCAT(Experience_Years, ' yrs exp') AS badge,
         'researcher' AS entityType
       FROM Researchers
       WHERE Name LIKE ? OR Organization LIKE ? OR Specialization LIKE ? OR Email LIKE ?

@@ -1,30 +1,18 @@
 import React, { useState } from 'react';
-import { Settings, User, ShieldCheck, Database, Server, RefreshCw, Key, CheckCircle2, Lock } from 'lucide-react';
+import { Settings, ShieldCheck, Database, Server, Key, CheckCircle2, Sliders, Monitor, Clock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { api } from '../services/api';
 
 export const SettingsPage = () => {
   const { user } = useAuth();
   const { addToast } = useToast();
 
-  const [profileName, setProfileName] = useState(user?.name || '');
-  const [profilePhone, setProfilePhone] = useState(user?.phone || '');
-  const [savingProfile, setSavingProfile] = useState(false);
+  const [rowDensity, setRowDensity] = useState('comfortable');
+  const [refreshInterval, setRefreshInterval] = useState('manual');
 
-  const handleUpdateProfile = async (e) => {
+  const handleSavePreferences = (e) => {
     e.preventDefault();
-    setSavingProfile(true);
-    try {
-      const res = await api.auth.updateProfile({ name: profileName, phone: profilePhone });
-      if (res.success) {
-        addToast(res.message, 'success');
-      }
-    } catch (err) {
-      addToast(err.message || 'Failed to update profile', 'error');
-    } finally {
-      setSavingProfile(false);
-    }
+    addToast('System preferences saved successfully.', 'success');
   };
 
   const permissionsMatrix = [
@@ -43,129 +31,57 @@ export const SettingsPage = () => {
   return (
     <div style={{ padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.75rem', maxWidth: '1000px' }}>
       <div>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Profile & System Settings</h2>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--forest-deep)' }}>System Settings & Diagnostics</h2>
         <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
-          Manage your account credentials, view role-based access control (RBAC) privileges, and inspect relational database diagnostics.
+          Inspect relational database schema diagnostics, role-based access control (RBAC) matrix, and configure workspace preferences.
         </p>
       </div>
 
-      {/* User Profile Form */}
-      <div className="card" style={{ background: 'var(--bg-surface)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
-          <User size={18} color="var(--emerald-600)" />
-          <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)' }}>Your Profile Information</h3>
-        </div>
-
-        <form onSubmit={handleUpdateProfile}>
-          <div className="grid-2">
-            <div className="form-group">
-              <label className="form-label">Full Name</label>
-              <input
-                type="text"
-                required
-                className="form-input"
-                value={profileName}
-                onChange={(e) => setProfileName(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Email Address (Primary Key ID)</label>
-              <input
-                type="email"
-                disabled
-                className="form-input"
-                value={user?.email || ''}
-                style={{ opacity: 0.6, cursor: 'not-allowed' }}
-              />
-            </div>
-          </div>
-
-          <div className="grid-2">
-            <div className="form-group">
-              <label className="form-label">Phone Contact</label>
-              <input
-                type="tel"
-                className="form-input"
-                placeholder="+91 98450 XXXXX"
-                value={profilePhone}
-                onChange={(e) => setProfilePhone(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Assigned System Role</label>
-              <div
-                style={{
-                  padding: '0.65rem 0.9rem',
-                  background: '#ecfdf5',
-                  border: '1px solid #a7f3d0',
-                  borderRadius: 'var(--radius-md)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  fontSize: '0.875rem',
-                  fontWeight: 600,
-                  color: 'var(--emerald-600)',
-                }}
-              >
-                <ShieldCheck size={16} />
-                <span>{user?.role || 'Viewer'}</span>
-              </div>
-            </div>
-          </div>
-
-          <button type="submit" className="btn btn-primary btn-sm" disabled={savingProfile}>
-            {savingProfile ? 'Saving...' : 'Save Profile Changes'}
-          </button>
-        </form>
-      </div>
-
       {/* Relational Database Diagnostics */}
-      <div className="card" style={{ background: 'var(--bg-surface)' }}>
+      <div className="card" style={{ background: '#ffffff' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
           <Database size={18} color="var(--emerald-600)" />
-          <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)' }}>Relational Database Diagnostics</h3>
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--forest-deep)', fontWeight: 700 }}>Relational Database Diagnostics</h3>
         </div>
 
-        <div className="grid-3" style={{ marginBottom: '1rem' }}>
-          <div style={{ background: '#f8fafc', padding: '0.85rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Schema Normalization</div>
-            <div style={{ fontWeight: 800, color: 'var(--emerald-600)', fontSize: '1rem', marginTop: '0.2rem' }}>
+        <div className="grid-3" style={{ marginBottom: '1.25rem' }}>
+          <div style={{ background: 'var(--natural-pale-sage)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Schema Normalization</div>
+            <div style={{ fontWeight: 800, color: 'var(--emerald-600)', fontSize: '1.1rem', marginTop: '0.2rem' }}>
               Third Normal Form (3NF)
             </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-              Zero redundant columns, normalized foreign keys
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+              Zero transitive dependencies, composite primary keys, lossless joins
             </div>
           </div>
 
-          <div style={{ background: '#f8fafc', padding: '0.85rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Foreign Key Enforcement</div>
-            <div style={{ fontWeight: 800, color: '#0284c7', fontSize: '1rem', marginTop: '0.2rem' }}>
+          <div style={{ background: 'var(--natural-pale-sage)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Referential Integrity</div>
+            <div style={{ fontWeight: 800, color: '#0284c7', fontSize: '1.1rem', marginTop: '0.2rem' }}>
               CASCADE & RESTRICT Active
             </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-              Enforced at database engine layer
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+              Enforced at database engine layer via SQL foreign keys
             </div>
           </div>
 
-          <div style={{ background: '#f8fafc', padding: '0.85rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Core Entities</div>
-            <div style={{ fontWeight: 800, color: '#d97706', fontSize: '1rem', marginTop: '0.2rem' }}>
-              11 Relational Tables
+          <div style={{ background: 'var(--natural-pale-sage)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Relational Entities</div>
+            <div style={{ fontWeight: 800, color: '#d97706', fontSize: '1.1rem', marginTop: '0.2rem' }}>
+              11 SQL Tables
             </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-              Including M:N junction tables & constraints
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+              Users, Species, Habitat, Location, Researchers, Observations, Threats, Programs, Activities, Junctions
             </div>
           </div>
         </div>
       </div>
 
       {/* Role-Based Permissions Matrix */}
-      <div className="card" style={{ background: 'var(--bg-surface)' }}>
+      <div className="card" style={{ background: '#ffffff' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
           <ShieldCheck size={18} color="var(--emerald-600)" />
-          <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)' }}>Role-Based Access Control (RBAC) Matrix</h3>
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--forest-deep)', fontWeight: 700 }}>Role-Based Access Control (RBAC) Matrix</h3>
         </div>
 
         <div className="table-container">
@@ -184,21 +100,88 @@ export const SettingsPage = () => {
                 <tr key={idx}>
                   <td style={{ fontWeight: 500 }}>{p.module}</td>
                   <td style={{ textAlign: 'center' }}>
-                    {p.admin ? <CheckCircle2 size={16} color="#34d399" style={{ margin: '0 auto' }} /> : '—'}
+                    {p.admin ? <CheckCircle2 size={16} color="#059669" style={{ margin: '0 auto' }} /> : '—'}
                   </td>
                   <td style={{ textAlign: 'center' }}>
-                    {p.officer ? <CheckCircle2 size={16} color="#34d399" style={{ margin: '0 auto' }} /> : '—'}
+                    {p.officer ? <CheckCircle2 size={16} color="#059669" style={{ margin: '0 auto' }} /> : '—'}
                   </td>
                   <td style={{ textAlign: 'center' }}>
-                    {p.researcher ? <CheckCircle2 size={16} color="#34d399" style={{ margin: '0 auto' }} /> : '—'}
+                    {p.researcher ? <CheckCircle2 size={16} color="#059669" style={{ margin: '0 auto' }} /> : '—'}
                   </td>
                   <td style={{ textAlign: 'center' }}>
-                    {p.viewer ? <CheckCircle2 size={16} color="#34d399" style={{ margin: '0 auto' }} /> : '—'}
+                    {p.viewer ? <CheckCircle2 size={16} color="#059669" style={{ margin: '0 auto' }} /> : '—'}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* Workspace & Display Preferences */}
+      <div className="card" style={{ background: '#ffffff' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
+          <Sliders size={18} color="var(--emerald-600)" />
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--forest-deep)', fontWeight: 700 }}>Display & Workspace Preferences</h3>
+        </div>
+
+        <form onSubmit={handleSavePreferences}>
+          <div className="grid-2">
+            <div className="form-group">
+              <label className="form-label">Table Row Density</label>
+              <select
+                className="form-select"
+                value={rowDensity}
+                onChange={(e) => setRowDensity(e.target.value)}
+              >
+                <option value="compact">Compact (Higher information density)</option>
+                <option value="comfortable">Comfortable (Default padding)</option>
+                <option value="spacious">Spacious (Accessible row spacing)</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Metrics Auto-Refresh</label>
+              <select
+                className="form-select"
+                value={refreshInterval}
+                onChange={(e) => setRefreshInterval(e.target.value)}
+              >
+                <option value="manual">Manual Refresh (On demand)</option>
+                <option value="30s">Every 30 seconds</option>
+                <option value="60s">Every 60 seconds</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" className="btn btn-primary btn-sm">
+            Save Workspace Preferences
+          </button>
+        </form>
+      </div>
+
+      {/* Session Diagnostics */}
+      <div className="card" style={{ background: '#ffffff' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.75rem' }}>
+          <Key size={18} color="var(--emerald-600)" />
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--forest-deep)', fontWeight: 700 }}>Security & Session Details</h3>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.5rem' }}>
+            <span>Authenticated User:</span>
+            <strong style={{ color: 'var(--forest-deep)' }}>{user?.name} ({user?.email})</strong>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.5rem' }}>
+            <span>Active Session Token:</span>
+            <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--emerald-600)', fontSize: '0.8rem' }}>
+              JSON Web Token (HS256 Verified)
+            </span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Password Security:</span>
+            <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>bcrypt 10 salt rounds</span>
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Trees,
   Shield,
@@ -6,52 +6,43 @@ import {
   Search,
   Eye,
   ArrowRight,
-  Database,
   CheckCircle2,
-  Lock,
   Globe,
   Compass,
+  Loader2,
+  RefreshCw,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { api } from '../services/api';
 import { StatusBadge } from '../components/StatusBadge';
 
 export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
   const { user } = useAuth();
+  const [stats, setStats] = useState(null);
+  const [statsLoading, setStatsLoading] = useState(true);
+  const [statsError, setStatsError] = useState(null);
 
-  const demoRoles = [
-    {
-      role: 'Admin',
-      name: 'Dr. Rajesh Sharma',
-      email: 'admin@biodiversity.org',
-      pass: 'Admin@123',
-      desc: 'Full CRUD control over species, habitats, researchers, threats, and user privileges.',
-      badgeColor: '#10b981',
-    },
-    {
-      role: 'Researcher',
-      name: 'Dr. Sunita Narain',
-      email: 'sunita.narain@wii.gov.in',
-      pass: 'Research@123',
-      desc: 'Log field surveys, update GPS/drone telemetry observations, and link ecological threats.',
-      badgeColor: '#38bdf8',
-    },
-    {
-      role: 'Conservation Officer',
-      name: 'Vikram Rathore',
-      email: 'vikram.rathore@forest.gov.in',
-      pass: 'Officer@123',
-      desc: 'Manage state conservation programs, budget allocations, and milestone field activities.',
-      badgeColor: '#fbbf24',
-    },
-    {
-      role: 'Viewer',
-      name: 'Ananya Iyer',
-      email: 'ananya.iyer@nature.org',
-      pass: 'Viewer@123',
-      desc: 'Read-only access to interactive dashboards, species profiles, and analytical reports.',
-      badgeColor: '#a855f7',
-    },
-  ];
+  const fetchLiveStats = async () => {
+    setStatsLoading(true);
+    setStatsError(null);
+    try {
+      const res = await api.dashboard.getPublicStats();
+      if (res.success) {
+        setStats(res.data);
+      }
+    } catch (err) {
+      console.warn('Could not fetch public stats:', err.message);
+      setStatsError(err.message || 'Database connection offline');
+    } finally {
+      setStatsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchLiveStats();
+  }, []);
+
+
 
   const pillars = [
     {
@@ -76,70 +67,132 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
     },
   ];
 
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-main)', color: 'var(--text-primary)' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--neutral-ivory)', color: 'var(--text-primary)' }}>
       {/* Top Navbar */}
       <nav
         style={{
-          padding: '1.25rem 2rem',
+          padding: '1.1rem clamp(1rem, 3vw, 2.5rem)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(255, 255, 255, 0.92)',
-          backdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(196, 164, 91, 0.28)',
+          background: 'rgba(21, 61, 43, 0.97)',
+          backdropFilter: 'blur(14px)',
           position: 'sticky',
           top: 0,
           zIndex: 100,
+          boxShadow: '0 4px 20px rgba(13, 38, 27, 0.25)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        {/* Left: Clickable Logo & Title */}
+        <div
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', cursor: 'pointer' }}
+          title="Return to Home"
+        >
           <div
             style={{
-              width: '38px',
-              height: '38px',
+              width: '40px',
+              height: '40px',
               borderRadius: 'var(--radius-md)',
-              background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+              background: 'linear-gradient(135deg, var(--forest-emerald) 0%, var(--forest-evergreen) 100%)',
+              border: '1px solid rgba(196, 164, 91, 0.45)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '1.2rem',
+              fontSize: '1.25rem',
               color: '#ffffff',
-              boxShadow: '0 2px 10px rgba(5, 150, 105, 0.3)',
+              boxShadow: '0 2px 12px rgba(0, 0, 0, 0.3)',
             }}
           >
             🌿
           </div>
-          <div>
-            <div style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-              BIODIVERSITY MANAGEMENT SYSTEM
-            </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--emerald-600)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-              Relational Database Platform (3NF)
-            </div>
+          <div style={{ fontWeight: 800, fontSize: '1.05rem', color: '#FFFFFF', letterSpacing: '-0.01em', fontFamily: 'var(--font-heading)' }}>
+            BIODIVERSITY MANAGEMENT SYSTEM
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div
+        {/* Center: Public Navigation Links */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+          }}
+          className="desktop-nav"
+        >
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              padding: '0.35rem 0.75rem',
-              background: '#ecfdf5',
-              border: '1px solid #a7f3d0',
-              borderRadius: 'var(--radius-full)',
-              fontSize: '0.75rem',
-              color: '#065f46',
+              background: 'transparent',
+              border: 'none',
+              color: '#FFFFFF',
+              cursor: 'pointer',
+              fontWeight: 600,
+              padding: '0.4rem 0.2rem',
+              transition: 'color 0.15s ease',
+              borderBottom: '2px solid var(--accent-gold)',
             }}
           >
-            <Database size={13} color="#059669" />
-            <span style={{ fontWeight: 600 }}>Relational SQL Engine</span>
-          </div>
+            Home
+          </button>
+          <button
+            onClick={() => scrollToSection('about')}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--natural-pale-sage)',
+              cursor: 'pointer',
+              fontWeight: 500,
+              padding: '0.4rem 0.2rem',
+              transition: 'color 0.15s ease',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#FFFFFF')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--natural-pale-sage)')}
+          >
+            About the Project
+          </button>
+          <button
+            onClick={() => scrollToSection('features')}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--natural-pale-sage)',
+              cursor: 'pointer',
+              fontWeight: 500,
+              padding: '0.4rem 0.2rem',
+              transition: 'color 0.15s ease',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#FFFFFF')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--natural-pale-sage)')}
+          >
+            Features
+          </button>
+        </div>
 
-          <button className="btn btn-primary" onClick={onGetStarted}>
-            <span>{user ? 'Enter Dashboard' : 'Sign In / Demo'}</span>
+        {/* Right: Sign In Button */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <button
+            className="btn btn-primary"
+            onClick={onGetStarted}
+            style={{
+              background: 'linear-gradient(135deg, var(--forest-evergreen) 0%, #153D2B 100%)',
+              borderColor: 'rgba(196, 164, 91, 0.45)',
+            }}
+          >
+            <span>{user ? 'Enter Dashboard' : 'Sign In'}</span>
             <ArrowRight size={16} />
           </button>
         </div>
@@ -147,8 +200,9 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
 
       {/* Hero Section */}
       <section
+        id="home"
         style={{
-          padding: '5rem 2rem 4rem',
+          padding: '5.5rem 2rem 4rem',
           maxWidth: '1200px',
           margin: '0 auto',
           textAlign: 'center',
@@ -159,28 +213,31 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.4rem 1rem',
-            background: '#ecfdf5',
-            border: '1px solid #a7f3d0',
+            gap: '0.45rem',
+            padding: '0.35rem 0.95rem',
             borderRadius: 'var(--radius-full)',
-            fontSize: '0.8rem',
-            color: '#065f46',
+            background: 'var(--neutral-cream)',
+            border: '1px solid var(--natural-sage)',
+            color: 'var(--forest-evergreen)',
+            fontSize: '0.775rem',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
             marginBottom: '1.5rem',
           }}
         >
-          <span>🌱</span>
-          <span style={{ fontWeight: 600 }}>Enterprise-Grade Full-Stack DBMS Architecture</span>
+          <span>🌿 Relational Environmental Conservation</span>
         </div>
 
         <h1
           style={{
-            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            fontSize: 'clamp(2.6rem, 5.5vw, 4.2rem)',
             fontWeight: 800,
             lineHeight: 1.15,
-            letterSpacing: '-0.03em',
+            letterSpacing: '-0.025em',
             marginBottom: '1.25rem',
-            color: '#06281c',
+            color: 'var(--forest-deep)',
+            fontFamily: 'var(--font-heading)',
           }}
         >
           Biodiversity Management System
@@ -188,11 +245,13 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
 
         <h2
           style={{
-            fontSize: 'clamp(1.25rem, 2.5vw, 1.8rem)',
+            fontSize: 'clamp(1.25rem, 2.5vw, 1.85rem)',
             fontWeight: 600,
-            color: 'var(--emerald-600)',
+            color: 'var(--forest-emerald)',
             marginBottom: '1.5rem',
             letterSpacing: '0.02em',
+            fontFamily: 'var(--font-heading)',
+            fontStyle: 'italic',
           }}
         >
           Monitor. Protect. Preserve.
@@ -200,11 +259,11 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
 
         <p
           style={{
-            fontSize: '1.1rem',
+            fontSize: '1.125rem',
             color: 'var(--text-secondary)',
             maxWidth: '750px',
-            margin: '0 auto 2.5rem',
-            lineHeight: 1.6,
+            margin: '0 auto 2.75rem',
+            lineHeight: 1.7,
           }}
         >
           An integrated database platform for managing biodiversity records, monitoring endangered species,
@@ -212,198 +271,163 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
         </p>
 
         {/* Call to Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '3.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '4rem' }}>
           <button className="btn btn-primary btn-lg" onClick={onGetStarted}>
             <span>Get Started Now</span>
             <ArrowRight size={18} />
           </button>
-          <a
-            href="#demo-accounts"
-            className="btn btn-secondary btn-lg"
-            style={{ textDecoration: 'none' }}
-          >
-            <span>Explore 1-Click Role Logins</span>
-          </a>
         </div>
 
         {/* Live Database Metrics Preview */}
         <div
-          className="glass-panel"
+          id="about"
+          className="card"
           style={{
-            padding: '2rem',
+            padding: '2.5rem',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: '1.5rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '2rem',
             textAlign: 'left',
+            position: 'relative',
+            background: '#FFFFFF',
+            border: '1px solid rgba(196, 164, 91, 0.35)',
+            boxShadow: 'var(--shadow-md), 0 8px 30px rgba(21, 61, 43, 0.06)',
+            borderRadius: 'var(--radius-lg)',
           }}
         >
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Database Taxa</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#06281c', fontFamily: 'var(--font-heading)' }}>24+</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: 600 }}>Normalized 3NF Entities</div>
-          </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Key Habitats</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#0284c7', fontFamily: 'var(--font-heading)' }}>8 Biomes</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Rainforests, Mangroves, Reefs</div>
-          </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Surveillance Surveys</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#d97706', fontFamily: 'var(--font-heading)' }}>24 Field Logs</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>GPS, Drone, Camera Grid</div>
-          </div>
-          <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Active Programs</div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: '#059669', fontFamily: 'var(--font-heading)' }}>₹191M Budget</div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: 600 }}>Multi-state Initiatives</div>
-          </div>
+          {statsLoading ? (
+            <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '2rem', color: 'var(--text-muted)' }}>
+              <Loader2 size={26} className="animate-spin" style={{ margin: '0 auto 0.65rem', color: 'var(--forest-emerald)' }} />
+              <div style={{ fontSize: '0.875rem' }}>Connecting to database and aggregating records...</div>
+            </div>
+          ) : statsError ? (
+            <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '1.5rem', color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: '0.925rem', color: '#991B1B', marginBottom: '0.75rem', fontWeight: 600 }}>
+                Database metrics unavailable: {statsError}
+              </div>
+              <button className="btn btn-secondary btn-sm" onClick={fetchLiveStats}>
+                <RefreshCw size={13} />
+                <span>Retry Connection</span>
+              </button>
+            </div>
+          ) : (
+            <>
+              <div style={{ borderLeft: '3px solid var(--forest-deep)', paddingLeft: '1.1rem' }}>
+                <div style={{ fontSize: '0.775rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Database Taxa
+                </div>
+                <div style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--forest-deep)', fontFamily: 'var(--font-heading)', lineHeight: 1.15, margin: '0.35rem 0' }}>
+                  {stats?.totalSpecies ?? 0}
+                </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--forest-emerald)', fontWeight: 600 }}>
+                  Cataloged Species
+                </div>
+              </div>
+
+              <div style={{ borderLeft: '3px solid var(--accent-blue)', paddingLeft: '1.1rem' }}>
+                <div style={{ fontSize: '0.775rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Key Habitats
+                </div>
+                <div style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--accent-blue)', fontFamily: 'var(--font-heading)', lineHeight: 1.15, margin: '0.35rem 0' }}>
+                  {stats?.totalHabitats ?? 0}
+                </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                  Rainforests, Mangroves, Reefs
+                </div>
+              </div>
+
+              <div style={{ borderLeft: '3px solid var(--accent-gold)', paddingLeft: '1.1rem' }}>
+                <div style={{ fontSize: '0.775rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Surveillance Surveys
+                </div>
+                <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#8C6D27', fontFamily: 'var(--font-heading)', lineHeight: 1.15, margin: '0.35rem 0' }}>
+                  {stats?.totalObservations ?? 0}
+                </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                  Field Observations & Logs
+                </div>
+              </div>
+
+              <div style={{ borderLeft: '3px solid var(--forest-evergreen)', paddingLeft: '1.1rem' }}>
+                <div style={{ fontSize: '0.775rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Active Programs
+                </div>
+                <div style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--forest-evergreen)', fontFamily: 'var(--font-heading)', lineHeight: 1.15, margin: '0.35rem 0' }}>
+                  {stats?.activePrograms ?? 0}
+                </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--forest-emerald)', fontWeight: 600 }}>
+                  Active Conservation Initiatives
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
-      {/* 4 Pillars Section */}
-      <section style={{ padding: '4rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>Core Architectural Capabilities</h2>
-          <p style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto' }}>
-            Built specifically to demonstrate relational modeling, referential integrity, and high-performance querying.
-          </p>
-        </div>
+      {/* 4 Pillars / Features Section */}
+      <section id="features" style={{ padding: '5rem 2rem', background: 'var(--neutral-cream)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+            <h2 style={{ fontSize: '2.25rem', marginBottom: '0.85rem', color: 'var(--forest-deep)', fontFamily: 'var(--font-heading)' }}>
+              Core Architectural Capabilities
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', maxWidth: '640px', margin: '0 auto', fontSize: '1rem', lineHeight: 1.65 }}>
+              Built specifically to demonstrate relational modeling, referential integrity, and high-performance querying.
+            </p>
+          </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
-          {pillars.map((pillar, idx) => {
-            const Icon = pillar.icon;
-            return (
-              <div
-                key={idx}
-                className="card"
-                style={{
-                  padding: '1.75rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1rem',
-                  transition: 'transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.borderColor = 'var(--emerald-500)';
-                  e.currentTarget.style.boxShadow = 'var(--shadow-md)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                  e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
-                }}
-              >
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.75rem' }}>
+            {pillars.map((pillar, idx) => {
+              const Icon = pillar.icon;
+              return (
                 <div
+                  key={idx}
+                  className="card"
                   style={{
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: 'var(--radius-md)',
-                    background: '#ecfdf5',
-                    border: '1px solid #a7f3d0',
-                    color: '#059669',
+                    padding: '2rem',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    gap: '1.15rem',
+                    background: '#FFFFFF',
+                    border: '1px solid rgba(168, 185, 154, 0.45)',
+                    borderRadius: 'var(--radius-lg)',
+                    transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.borderColor = 'var(--forest-emerald)';
+                    e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.borderColor = 'rgba(168, 185, 154, 0.45)';
+                    e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
                   }}
                 >
-                  <Icon size={24} />
-                </div>
-                <h3 style={{ fontSize: '1.2rem', color: '#06281c' }}>{pillar.title}</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: '1.5' }}>
-                  {pillar.desc}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 1-Click Role Login Demo Section */}
-      <section id="demo-accounts" style={{ padding: '4rem 2rem 6rem', maxWidth: '1200px', margin: '0 auto' }}>
-        <div
-          className="card-elevated"
-          style={{
-            padding: '3rem 2rem',
-            background: 'linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%)',
-            border: '1px solid #bbf7d0',
-            textAlign: 'center',
-          }}
-        >
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.35rem 0.85rem',
-              background: '#fef3c7',
-              border: '1px solid #fde68a',
-              borderRadius: 'var(--radius-full)',
-              color: '#b45309',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              marginBottom: '1rem',
-            }}
-          >
-            ⚡ EVALUATOR & FACULTY QUICK-ACCESS
-          </div>
-          <h2 style={{ fontSize: '2.2rem', marginBottom: '0.75rem', color: '#06281c' }}>Instant Role-Based Demo Login</h2>
-          <p style={{ color: 'var(--text-secondary)', maxWidth: '650px', margin: '0 auto 2.5rem' }}>
-            Click any authorized role below to automatically authenticate and evaluate specialized permissions, CRUD access, and SQL analytics.
-          </p>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.25rem', textAlign: 'left' }}>
-            {demoRoles.map((demo, idx) => (
-              <div
-                key={idx}
-                className="card"
-                style={{
-                  background: '#ffffff',
-                  border: '1px solid var(--border-subtle)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  padding: '1.5rem',
-                  gap: '1rem',
-                  boxShadow: 'var(--shadow-sm)',
-                }}
-              >
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                    <span
-                      style={{
-                        padding: '0.2rem 0.6rem',
-                        borderRadius: 'var(--radius-full)',
-                        fontSize: '0.75rem',
-                        fontWeight: 700,
-                        background: `${demo.badgeColor}15`,
-                        color: demo.badgeColor,
-                        border: `1px solid ${demo.badgeColor}33`,
-                      }}
-                    >
-                      {demo.role}
-                    </span>
-                    <Lock size={14} color="var(--text-muted)" />
+                  <div
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: 'var(--radius-md)',
+                      background: 'var(--natural-pale-sage)',
+                      border: '1px solid var(--natural-sage)',
+                      color: 'var(--forest-evergreen)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Icon size={24} />
                   </div>
-                  <div style={{ fontWeight: 700, fontSize: '1.05rem', color: '#06281c' }}>{demo.name}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem', fontWeight: 600 }}>
-                    {demo.email}
-                  </div>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: '1.4' }}>
-                    {demo.desc}
+                  <h3 style={{ fontSize: '1.25rem', color: 'var(--forest-deep)', fontFamily: 'var(--font-heading)' }}>
+                    {pillar.title}
+                  </h3>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.6' }}>
+                    {pillar.desc}
                   </p>
                 </div>
-
-                <button
-                  className="btn btn-primary btn-sm"
-                  style={{ width: '100%', justifyContent: 'center' }}
-                  onClick={() => onDemoLogin(demo.email, demo.pass)}
-                >
-                  <span>Login as {demo.role}</span>
-                  <ArrowRight size={14} />
-                </button>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -411,17 +435,28 @@ export const LandingPage = ({ onGetStarted, onDemoLogin }) => {
       {/* Footer */}
       <footer
         style={{
-          padding: '2.5rem 2rem',
-          borderTop: '1px solid var(--border-subtle)',
+          padding: '2.5rem 1.5rem',
+          background: 'var(--forest-deep)',
           textAlign: 'center',
-          color: 'var(--text-muted)',
-          fontSize: '0.85rem',
+          color: 'var(--neutral-ivory)',
+          fontSize: '0.9rem',
+          borderTop: '1px solid rgba(196, 164, 91, 0.25)',
         }}
       >
-        <p>🌿 <strong>Biodiversity Management System</strong> • Relational DBMS Full-Stack Project</p>
-        <p style={{ fontSize: '0.75rem', marginTop: '0.4rem' }}>
-          Demonstrating 3NF Relational Schemas, Foreign Keys, Referential Integrity, Joins, Aggregation, and Role Authorization.
-        </p>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.65rem',
+            fontWeight: 600,
+            letterSpacing: '0.03em',
+          }}
+        >
+          <span>🌿 Biodiversity Management System</span>
+          <span style={{ color: 'var(--accent-gold)' }}>•</span>
+          <span style={{ color: 'var(--natural-sage)' }}>@2026</span>
+        </div>
       </footer>
     </div>
   );

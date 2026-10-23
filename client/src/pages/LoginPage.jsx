@@ -51,7 +51,7 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
     <div
       style={{
         minHeight: '100vh',
-        background: 'var(--bg-main)',
+        background: 'var(--neutral-ivory)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -64,7 +64,10 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
         style={{
           width: '100%',
           maxWidth: '520px',
-          background: 'var(--bg-surface)',
+          background: '#FFFFFF',
+          border: '1px solid rgba(196, 164, 91, 0.35)',
+          boxShadow: 'var(--shadow-lg), 0 16px 40px rgba(21, 61, 43, 0.08)',
+          borderRadius: 'var(--radius-lg)',
           padding: '2.5rem',
           position: 'relative',
         }}
@@ -77,11 +80,12 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
             left: '1.5rem',
             background: 'transparent',
             border: 'none',
-            color: 'var(--text-muted)',
+            color: 'var(--text-secondary)',
             display: 'flex',
             alignItems: 'center',
             gap: '0.35rem',
-            fontSize: '0.8rem',
+            fontSize: '0.825rem',
+            fontWeight: 600,
             cursor: 'pointer',
           }}
         >
@@ -93,24 +97,25 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
         <div style={{ textAlign: 'center', marginTop: '1rem', marginBottom: '2rem' }}>
           <div
             style={{
-              width: '48px',
-              height: '48px',
+              width: '52px',
+              height: '52px',
               borderRadius: 'var(--radius-md)',
-              background: 'linear-gradient(135deg, #10b981 0%, #047857 100%)',
+              background: 'linear-gradient(135deg, var(--forest-emerald) 0%, var(--forest-evergreen) 100%)',
+              border: '1px solid rgba(196, 164, 91, 0.45)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '1.5rem',
-              boxShadow: '0 4px 15px rgba(16, 185, 129, 0.4)',
-              marginBottom: '1rem',
+              fontSize: '1.6rem',
+              boxShadow: '0 4px 18px rgba(21, 61, 43, 0.25)',
+              marginBottom: '1.15rem',
             }}
           >
             🌿
           </div>
-          <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--forest-deep)', fontFamily: 'var(--font-heading)' }}>
             {isRegister ? 'Create DBMS Account' : 'Biodiversity System Portal'}
           </h2>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '0.45rem', lineHeight: 1.5 }}>
             {isRegister
               ? 'Register with role-based access to the environmental registry'
               : 'Enter your authorized credentials to access biodiversity records'}
@@ -122,26 +127,27 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            background: '#f1f5f9',
+            background: 'var(--neutral-cream)',
             padding: '0.3rem',
             borderRadius: 'var(--radius-md)',
-            marginBottom: '1.5rem',
-            border: '1px solid var(--border-subtle)',
+            marginBottom: '1.75rem',
+            border: '1px solid var(--natural-sage)',
           }}
         >
           <button
             type="button"
             onClick={() => setIsRegister(false)}
             style={{
-              padding: '0.5rem',
+              padding: '0.6rem',
               borderRadius: 'var(--radius-sm)',
               border: 'none',
-              background: !isRegister ? '#059669' : 'transparent',
-              color: !isRegister ? '#ffffff' : 'var(--text-secondary)',
+              background: !isRegister ? 'var(--forest-evergreen)' : 'transparent',
+              color: !isRegister ? '#FFFFFF' : 'var(--text-secondary)',
               fontWeight: 600,
-              fontSize: '0.85rem',
+              fontSize: '0.875rem',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
+              boxShadow: !isRegister ? '0 2px 8px rgba(21, 61, 43, 0.2)' : 'none',
             }}
           >
             Sign In
@@ -150,15 +156,16 @@ export const LoginPage = ({ onBack, onLoginSuccess }) => {
             type="button"
             onClick={() => setIsRegister(true)}
             style={{
-              padding: '0.5rem',
+              padding: '0.6rem',
               borderRadius: 'var(--radius-sm)',
               border: 'none',
-              background: isRegister ? '#059669' : 'transparent',
-              color: isRegister ? '#ffffff' : 'var(--text-secondary)',
+              background: isRegister ? 'var(--forest-evergreen)' : 'transparent',
+              color: isRegister ? '#FFFFFF' : 'var(--text-secondary)',
               fontWeight: 600,
-              fontSize: '0.85rem',
+              fontSize: '0.875rem',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
+              boxShadow: isRegister ? '0 2px 8px rgba(21, 61, 43, 0.2)' : 'none',
             }}
           >
             Register

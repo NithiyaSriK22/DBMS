@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('bms_auth_token');
@@ -59,9 +59,15 @@ export const api = {
 
   // Dashboard
   dashboard: {
+    getPublicStats: () =>
+      fetch(`${API_BASE_URL}/public/stats`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' },
+      }).then(handleResponse),
     getStats: () =>
       fetch(`${API_BASE_URL}/dashboard/stats`, {
         headers: getAuthHeaders(),
+        cache: 'no-store',
       }).then(handleResponse),
   },
 
@@ -69,7 +75,10 @@ export const api = {
   species: {
     getAll: (params = {}) => {
       const query = new URLSearchParams(params).toString();
-      return fetch(`${API_BASE_URL}/species?${query}`, { headers: getAuthHeaders() }).then(handleResponse);
+      return fetch(`${API_BASE_URL}/species?${query}`, {
+        headers: getAuthHeaders(),
+        cache: 'no-store',
+      }).then(handleResponse);
     },
     getById: (id) =>
       fetch(`${API_BASE_URL}/species/${id}`, { headers: getAuthHeaders() }).then(handleResponse),

@@ -215,7 +215,7 @@ export const ResearchersPage = () => {
                   <span>{r.Organization}</span>
                 </div>
 
-                <div style={{ fontSize: '0.775rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.25rem', marginTop: '0.5rem', background: '#f8fafc', padding: '0.6rem', borderRadius: 'var(--radius-sm)' }}>
+                <div style={{ fontSize: '0.775rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.25rem', marginTop: '0.5rem', background: 'var(--natural-pale-sage)', padding: '0.6rem', borderRadius: 'var(--radius-sm)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <Mail size={13} />
                     <span>{r.Email}</span>

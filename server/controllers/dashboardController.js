@@ -156,3 +156,25 @@ exports.getDashboardStats = async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to fetch dashboard metrics: ' + err.message });
   }
 };
+
+exports.getPublicStats = async (req, res) => {
+  try {
+    const totalSpeciesRes = await db.getOne('SELECT COUNT(*) AS count FROM Species');
+    const totalHabitatsRes = await db.getOne('SELECT COUNT(*) AS count FROM Habitat');
+    const totalObservationsRes = await db.getOne('SELECT COUNT(*) AS count FROM Species_Observation');
+    const activeProgramsRes = await db.getOne("SELECT COUNT(*) AS count FROM Conservation_Program WHERE Status = 'Active'");
+
+    res.json({
+      success: true,
+      data: {
+        totalSpecies: Number(totalSpeciesRes?.count || 0),
+        totalHabitats: Number(totalHabitatsRes?.count || 0),
+        totalObservations: Number(totalObservationsRes?.count || 0),
+        activePrograms: Number(activeProgramsRes?.count || 0),
+      },
+    });
+  } catch (err) {
+    console.error('Public stats error:', err);
+    res.status(500).json({ success: false, message: 'Failed to fetch public stats: ' + err.message });
+  }
+};

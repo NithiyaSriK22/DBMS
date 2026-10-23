@@ -9,7 +9,9 @@ import {
   ShieldAlert,
   HeartHandshake,
   BarChart3,
+  Terminal,
   Settings,
+  User,
   LogOut,
   X,
   Sparkles,
@@ -19,18 +21,23 @@ import { useAuth } from '../context/AuthContext';
 export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
   const { user, logout } = useAuth();
 
-  const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'species', label: 'Species Registry', icon: Bug },
-    { id: 'habitats', label: 'Habitats', icon: Trees },
-    { id: 'locations', label: 'Locations', icon: MapPin },
-    { id: 'observations', label: 'Field Observations', icon: Eye },
-    { id: 'researchers', label: 'Researchers', icon: GraduationCap },
-    { id: 'threats', label: 'Threat Analysis', icon: ShieldAlert },
-    { id: 'conservation', label: 'Conservation', icon: HeartHandshake },
-    { id: 'reports', label: 'Reports & Analytics', icon: BarChart3 },
-    { id: 'settings', label: 'Settings & Profile', icon: Settings },
+  const allNavItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['Admin', 'Researcher', 'Conservation Officer', 'Viewer'] },
+    { id: 'species', label: 'Species', icon: Bug, roles: ['Admin', 'Researcher', 'Conservation Officer', 'Viewer'] },
+    { id: 'habitats', label: 'Habitats', icon: Trees, roles: ['Admin', 'Researcher', 'Conservation Officer', 'Viewer'] },
+    { id: 'locations', label: 'Locations', icon: MapPin, roles: ['Admin', 'Researcher', 'Conservation Officer', 'Viewer'] },
+    { id: 'researchers', label: 'Researchers', icon: GraduationCap, roles: ['Admin', 'Researcher', 'Viewer'] },
+    { id: 'observations', label: 'Observations', icon: Eye, roles: ['Admin', 'Researcher', 'Viewer'] },
+    { id: 'threats', label: 'Threats', icon: ShieldAlert, roles: ['Admin', 'Researcher', 'Conservation Officer'] },
+    { id: 'conservation', label: 'Conservation Programs', icon: HeartHandshake, roles: ['Admin', 'Conservation Officer'] },
+    { id: 'reports', label: 'Reports & Analytics', icon: BarChart3, roles: ['Admin', 'Researcher', 'Conservation Officer', 'Viewer'] },
+    { id: 'sql-console', label: 'SQL Console', icon: Terminal, roles: ['Admin', 'Researcher'] },
+    { id: 'profile', label: 'Profile', icon: User, roles: ['Admin', 'Researcher', 'Conservation Officer', 'Viewer'] },
+    { id: 'settings', label: 'Settings', icon: Settings, roles: ['Admin', 'Researcher', 'Conservation Officer', 'Viewer'] },
   ];
+
+  const currentRole = user?.role || 'Viewer';
+  const navItems = allNavItems.filter((item) => !item.roles || item.roles.includes(currentRole));
 
   return (
     <>
@@ -53,8 +60,8 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
         style={{
           width: '260px',
           height: '100vh',
-          background: 'var(--bg-surface)',
-          borderRight: '1px solid var(--border-subtle)',
+          background: 'var(--forest-deep)',
+          borderRight: '1px solid rgba(196, 164, 91, 0.2)',
           display: 'flex',
           flexDirection: 'column',
           position: 'sticky',
@@ -66,8 +73,8 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
         {/* Brand Header */}
         <div
           style={{
-            padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid var(--border-subtle)',
+            padding: '1.35rem 1.5rem',
+            borderBottom: '1px solid rgba(196, 164, 91, 0.15)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -76,25 +83,26 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div
               style={{
-                width: '36px',
-                height: '36px',
+                width: '38px',
+                height: '38px',
                 borderRadius: 'var(--radius-md)',
-                background: 'linear-gradient(135deg, #057a44 0%, #034426 100%)',
+                background: 'linear-gradient(135deg, var(--forest-emerald) 0%, var(--forest-evergreen) 100%)',
+                border: '1px solid rgba(196, 164, 91, 0.35)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#ffffff',
-                boxShadow: '0 2px 10px rgba(4, 92, 52, 0.35)',
+                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.25)',
               }}
             >
               🌿
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+              <div style={{ fontWeight: 800, fontSize: '1rem', color: '#FFFFFF', letterSpacing: '-0.01em', lineHeight: 1.2, fontFamily: 'var(--font-heading)' }}>
                 BIODIVERSITY
               </div>
-              <div style={{ fontSize: '0.675rem', color: 'var(--emerald-600)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                DBMS Platform
+              <div style={{ fontSize: '0.675rem', color: 'var(--accent-gold)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                Management System
               </div>
             </div>
           </div>
@@ -105,7 +113,7 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
             style={{
               background: 'transparent',
               border: 'none',
-              color: 'var(--text-muted)',
+              color: 'var(--natural-sage)',
               cursor: 'pointer',
               display: 'none',
             }}
@@ -115,7 +123,7 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
         </div>
 
         {/* Navigation Links */}
-        <nav style={{ flex: 1, padding: '1rem 0.75rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+        <nav style={{ flex: 1, padding: '1rem 0.75rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -132,9 +140,9 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
                   gap: '0.75rem',
                   padding: '0.65rem 0.85rem',
                   borderRadius: 'var(--radius-md)',
-                  background: isActive ? '#ecfdf5' : 'transparent',
-                  border: isActive ? '1px solid #a7f3d0' : '1px solid transparent',
-                  color: isActive ? 'var(--emerald-700)' : 'var(--text-secondary)',
+                  background: isActive ? 'rgba(47, 118, 81, 0.45)' : 'transparent',
+                  border: isActive ? '1px solid rgba(196, 164, 91, 0.35)' : '1px solid transparent',
+                  color: isActive ? '#FFFFFF' : 'var(--natural-pale-sage)',
                   fontWeight: isActive ? 700 : 500,
                   fontSize: '0.85rem',
                   cursor: 'pointer',
@@ -144,18 +152,18 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.background = '#f8fafc';
-                    e.currentTarget.style.color = '#034426';
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.color = '#FFFFFF';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = 'var(--text-secondary)';
+                    e.currentTarget.style.color = 'var(--natural-pale-sage)';
                   }
                 }}
               >
-                <Icon size={18} color={isActive ? 'var(--emerald-600)' : 'var(--text-muted)'} />
+                <Icon size={18} color={isActive ? 'var(--accent-gold)' : 'var(--natural-sage)'} />
                 <span style={{ flex: 1 }}>{item.label}</span>
               </button>
             );
@@ -166,8 +174,8 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
         <div
           style={{
             padding: '1rem',
-            borderTop: '1px solid var(--border-subtle)',
-            background: '#f8fafc',
+            borderTop: '1px solid rgba(196, 164, 91, 0.15)',
+            background: 'rgba(13, 38, 27, 0.65)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
@@ -176,23 +184,23 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
-                background: '#ecfdf5',
-                border: '1px solid #a7f3d0',
+                background: 'rgba(47, 118, 81, 0.35)',
+                border: '1px solid rgba(196, 164, 91, 0.35)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 700,
-                color: '#047857',
+                color: 'var(--accent-gold)',
                 fontSize: '0.9rem',
               }}
             >
               {user?.name ? user.name.charAt(0) : 'U'}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 600, fontSize: '0.85rem', color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <div style={{ fontWeight: 600, fontSize: '0.85rem', color: '#FFFFFF', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {user?.name || 'User'}
               </div>
-              <div style={{ fontSize: '0.7rem', color: 'var(--emerald-600)', fontWeight: 600 }}>
+              <div style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', fontWeight: 600 }}>
                 {user?.role || 'Viewer'}
               </div>
             </div>
@@ -201,7 +209,21 @@ export const Sidebar = ({ activeTab, onTabChange, isOpen, onClose }) => {
           <button
             onClick={logout}
             className="btn btn-secondary btn-sm"
-            style={{ width: '100%', justifyContent: 'center' }}
+            style={{
+              width: '100%',
+              justifyContent: 'center',
+              background: 'rgba(255, 255, 255, 0.08)',
+              color: 'var(--natural-pale-sage)',
+              borderColor: 'rgba(196, 164, 91, 0.25)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#FFFFFF';
+              e.currentTarget.style.color = 'var(--forest-deep)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+              e.currentTarget.style.color = 'var(--natural-pale-sage)';
+            }}
           >
             <LogOut size={14} />
             <span>Sign Out</span>

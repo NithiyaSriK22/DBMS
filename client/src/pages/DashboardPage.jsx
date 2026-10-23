@@ -81,14 +81,14 @@ export const DashboardPage = ({ onNavigate }) => {
         <div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Biodiversity Overview</h2>
           <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
-            Real-time ecological statistics computed directly via SQL aggregation across normalized 3NF tables.
+            Real-time ecological statistics computed directly via database aggregations.
           </p>
         </div>
 
         <div style={{ display: 'flex', gap: '0.75rem' }}>
-          <button className="btn btn-secondary btn-sm" onClick={fetchStats} title="Rerun SQL aggregate queries">
+          <button className="btn btn-secondary btn-sm" onClick={fetchStats} title="Refresh live statistics">
             <RefreshCw size={14} />
-            <span>Refresh SQL</span>
+            <span>Refresh</span>
           </button>
           <button className="btn btn-primary btn-sm" onClick={() => onNavigate('species', 'new')}>
             <span>+ Add Species</span>
@@ -103,21 +103,24 @@ export const DashboardPage = ({ onNavigate }) => {
           value={cards?.totalSpecies}
           icon={Bug}
           color="emerald"
-          subtitle="Taxa recorded in 3NF"
+          subtitle="Taxa recorded"
+          onClick={() => onNavigate('species')}
         />
         <StatCard
-          title="Protected Species"
-          value={cards?.protectedSpecies}
-          icon={ShieldCheck}
-          color="blue"
-          subtitle="IUCN listed wildlife"
-        />
-        <StatCard
-          title="Habitats"
+          title="Total Habitats"
           value={cards?.totalHabitats}
           icon={Trees}
-          color="emerald"
-          subtitle="Preserved biomes"
+          color="blue"
+          subtitle="Protected biomes"
+          onClick={() => onNavigate('habitats')}
+        />
+        <StatCard
+          title="Total Observations"
+          value={cards?.recordedObservations}
+          icon={Eye}
+          color="amber"
+          subtitle={`${cards?.totalIndividuals?.toLocaleString() || 0} specimens logged`}
+          onClick={() => onNavigate('observations')}
         />
         <StatCard
           title="Endangered Species"
@@ -125,6 +128,7 @@ export const DashboardPage = ({ onNavigate }) => {
           icon={AlertTriangle}
           color="red"
           subtitle="Critical & Endangered"
+          onClick={() => onNavigate('species')}
         />
         <StatCard
           title="Active Programs"
@@ -132,20 +136,22 @@ export const DashboardPage = ({ onNavigate }) => {
           icon={HeartHandshake}
           color="purple"
           subtitle="State initiatives"
+          onClick={() => onNavigate('conservation')}
         />
         <StatCard
-          title="Recorded Observations"
-          value={cards?.recordedObservations}
-          icon={Eye}
-          color="amber"
-          subtitle={`${cards?.totalIndividuals?.toLocaleString() || 0} specimens logged`}
+          title="Recorded Threats"
+          value={cards?.totalThreats}
+          icon={ShieldCheck}
+          color="emerald"
+          subtitle="Ecological extinction risks"
+          onClick={() => onNavigate('threats')}
         />
       </div>
 
       {/* 5 CHARTS GRID */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '1.25rem' }}>
+      <div className="charts-grid">
         {/* Chart 1: Species by Category (5 Cols) */}
-        <div className="card" style={{ gridColumn: 'span 5' }}>
+        <div className="card chart-col-5">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
             <div>
               <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>Chart 1 — Species by Category</h3>
@@ -157,7 +163,7 @@ export const DashboardPage = ({ onNavigate }) => {
         </div>
 
         {/* Chart 2: Conservation Status (4 Cols) */}
-        <div className="card" style={{ gridColumn: 'span 4' }}>
+        <div className="card chart-col-4">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
             <div>
               <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>Chart 2 — Conservation Status</h3>
@@ -169,7 +175,7 @@ export const DashboardPage = ({ onNavigate }) => {
         </div>
 
         {/* Chart 3: Species Distribution by Region (3 Cols) */}
-        <div className="card" style={{ gridColumn: 'span 3' }}>
+        <div className="card chart-col-3">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
             <div>
               <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>Chart 3 — Geographic Distribution</h3>
@@ -181,7 +187,7 @@ export const DashboardPage = ({ onNavigate }) => {
         </div>
 
         {/* Chart 4: Population Trend (6 Cols) */}
-        <div className="card" style={{ gridColumn: 'span 6' }}>
+        <div className="card chart-col-6">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
             <div>
               <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>Chart 4 — Observation Timeline</h3>
@@ -193,7 +199,7 @@ export const DashboardPage = ({ onNavigate }) => {
         </div>
 
         {/* Chart 5: Major Threats (6 Cols) */}
-        <div className="card" style={{ gridColumn: 'span 6' }}>
+        <div className="card chart-col-6">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
             <div>
               <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>Chart 5 — Major Threats Affecting Species</h3>

@@ -4,12 +4,11 @@
 -- ============================================================================
 
 -- 1. SEED USERS (Passwords hashed for bcrypt: 'Admin@123', 'Research@123', 'Officer@123', 'Viewer@123')
--- Note: In the node backend, bcrypt hashes will also be verified or loaded dynamically.
 INSERT INTO Users (User_ID, Name, Email, Password, Role, Phone) VALUES
-(1, 'Dr. Rajesh Sharma', 'admin@biodiversity.org', '$2a$10$wN3tN6XW3Q7s6H5r6r0/h.aRkK6i4eF5Yg3k7H8x9J0z1a2b3c4d5e', 'Admin', '+91 98450 12345'),
-(2, 'Dr. Sunita Narain', 'sunita.narain@wii.gov.in', '$2a$10$wN3tN6XW3Q7s6H5r6r0/h.aRkK6i4eF5Yg3k7H8x9J0z1a2b3c4d5e', 'Researcher', '+91 98450 23456'),
-(3, 'Vikram Rathore', 'vikram.rathore@forest.gov.in', '$2a$10$wN3tN6XW3Q7s6H5r6r0/h.aRkK6i4eF5Yg3k7H8x9J0z1a2b3c4d5e', 'Conservation Officer', '+91 98450 34567'),
-(4, 'Ananya Iyer', 'ananya.iyer@nature.org', '$2a$10$wN3tN6XW3Q7s6H5r6r0/h.aRkK6i4eF5Yg3k7H8x9J0z1a2b3c4d5e', 'Viewer', '+91 98450 45678');
+(1, 'Dr. Rajesh Sharma', 'admin@biodiversity.org', '$2a$10$Mi.6vZeDEE1KM6B1kSXKcOkMDRiRcBMRgQBomzADO28oqf4NTqz3C', 'Admin', '+91 98450 12345'),
+(2, 'Dr. Sunita Narain', 'sunita.narain@wii.gov.in', '$2a$10$aPQjb4Iy9s45TuKRVrC.S.KsypYtB1b.t2qSFnWKQRleZPEKNkVx.', 'Researcher', '+91 98450 23456'),
+(3, 'Vikram Rathore', 'vikram.rathore@forest.gov.in', '$2a$10$G8z5O.LdYgofl9L8km7FteldKhjoRPgvk/3Jb8o5xHIUrm4mWtUXm', 'Conservation Officer', '+91 98450 34567'),
+(4, 'Ananya Iyer', 'ananya.iyer@nature.org', '$2a$10$1R/cCQb7JAbK42Gik/O0EOIFOh42.sFimdSV.u6BAKh0qQM059WXG', 'Viewer', '+91 98450 45678');
 
 -- 2. SEED HABITATS
 INSERT INTO Habitat (Habitat_ID, Habitat_Name, Habitat_Type, Climate, Area, Description, Protection_Status) VALUES

@@ -2,23 +2,57 @@ const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 
-dotenv.config();
+// Explicitly load root .env regardless of current working directory
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 let dbInstance = null;
-let currentDialect = process.env.DB_DIALECT || 'sqlite';
 
 class DatabaseAdapter {
   constructor() {
-    this.dialect = currentDialect;
+    this.dialect = (process.env.DB_DIALECT || 'sqlite').toLowerCase().trim();
     this.pool = null;
     this.sqliteDb = null;
   }
 
   async init() {
+    // Re-read dialect dynamically at initialization time
+    this.dialect = (process.env.DB_DIALECT || 'sqlite').toLowerCase().trim();
+
     if (this.dialect === 'mysql') {
       try {
         const mysql = require('mysql2/promise');
-        this.pool = mysql.createPool({
+
+        // Configure SSL for secure cloud MySQL connections (e.g. Aiven)
+        let sslConfig = undefined;
+        if (process.env.DB_SSL === 'true') {
+          sslConfig = {};
+
+          const caPath = process.env.DB_SSL_CA_PATH;
+          const caContent = process.env.DB_SSL_CA;
+
+          if (caPath) {
+            let resolvedPath = path.isAbsolute(caPath) ? caPath : path.resolve(process.cwd(), caPath);
+            if (!fs.existsSync(resolvedPath)) {
+              const rootPath = path.resolve(__dirname, '../../', caPath);
+              if (fs.existsSync(rootPath)) {
+                resolvedPath = rootPath;
+              }
+            }
+
+            if (fs.existsSync(resolvedPath)) {
+              sslConfig.ca = fs.readFileSync(resolvedPath, 'utf8');
+            } else {
+              console.warn(`⚠️  Warning: DB_SSL_CA_PATH specified (${caPath}) but file was not found.`);
+            }
+          } else if (caContent) {
+            sslConfig.ca = caContent;
+          }
+
+          // Prefer certificate verification by default unless explicitly disabled
+          sslConfig.rejectUnauthorized = process.env.DB_SSL_REJECT_UNAUTHORIZED !== 'false';
+        }
+
+        const poolConfig = {
           host: process.env.DB_HOST || 'localhost',
           user: process.env.DB_USER || 'root',
           password: process.env.DB_PASSWORD || '',
@@ -27,7 +61,15 @@ class DatabaseAdapter {
           waitForConnections: true,
           connectionLimit: 10,
           queueLimit: 0,
-        });
+          enableKeepAlive: true,
+          keepAliveInitialDelay: 10000,
+        };
+
+        if (sslConfig) {
+          poolConfig.ssl = sslConfig;
+        }
+
+        this.pool = mysql.createPool(poolConfig);
 
         // Test connection
         const connection = await this.pool.getConnection();
@@ -35,7 +77,12 @@ class DatabaseAdapter {
         connection.release();
         return;
       } catch (err) {
-        console.warn('⚠️  Could not connect to MySQL server (' + err.message + '). Falling back to relational SQLite engine for seamless zero-setup execution.');
+        const isMysqlExplicit = (process.env.DB_DIALECT || '').toLowerCase().trim() === 'mysql';
+        if (process.env.NODE_ENV === 'production' || process.env.REQUIRE_MYSQL === 'true' || isMysqlExplicit) {
+          console.error('❌ FATAL: MySQL connection failed:', err.message);
+          throw new Error(`MySQL connection failed: ${err.message}. Refusing silent SQLite fallback when DB_DIALECT=mysql.`);
+        }
+        console.warn('⚠️  Could not connect to MySQL server (' + err.message + '). Falling back to relational SQLite engine for local development.');
         this.dialect = 'sqlite';
       }
     }
@@ -88,8 +135,35 @@ class DatabaseAdapter {
 
   async query(sql, params = []) {
     if (this.dialect === 'mysql') {
-      const [rows] = await this.pool.execute(sql, params);
-      return rows;
+      let adaptedSql = sql.trim();
+      // SQLite to MySQL syntax adaptations
+      adaptedSql = adaptedSql
+        .replace(/INSERT\s+OR\s+IGNORE\s+INTO/gi, 'INSERT IGNORE INTO')
+        .replace(/INSERT\s+OR\s+REPLACE\s+INTO/gi, 'REPLACE INTO')
+        .replace(/strftime\s*\(\s*'%Y-%m'\s*,\s*([^)]+)\s*\)/gi, "DATE_FORMAT($1, '%Y-%m')");
+
+      try {
+        const [rows] = await this.pool.execute(adaptedSql, params);
+        if (rows && typeof rows === 'object' && !Array.isArray(rows)) {
+          return {
+            insertId: rows.insertId,
+            affectedRows: rows.affectedRows,
+          };
+        }
+        return rows;
+      } catch (err) {
+        if (err.code === 'ECONNRESET' || err.code === 'PROTOCOL_CONNECTION_LOST' || (err.message && err.message.includes('ECONNRESET'))) {
+          const [rows] = await this.pool.execute(adaptedSql, params);
+          if (rows && typeof rows === 'object' && !Array.isArray(rows)) {
+            return {
+              insertId: rows.insertId,
+              affectedRows: rows.affectedRows,
+            };
+          }
+          return rows;
+        }
+        throw err;
+      }
     } else {
       // Better-SQLite3
       const cleanSql = sql.trim();

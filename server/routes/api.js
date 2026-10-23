@@ -16,6 +16,17 @@ const reportsController = require('../controllers/reportsController');
 const searchController = require('../controllers/searchController');
 const queriesController = require('../controllers/queriesController');
 const userController = require('../controllers/userController');
+const db = require('../config/db');
+
+// 0. HEALTH CHECK
+router.get('/health', (req, res) => {
+  res.json({
+    status: 'online',
+    service: 'Biodiversity Management System API',
+    dialect: db.dialect,
+    timestamp: new Date().toISOString(),
+  });
+});
 
 // 1. AUTHENTICATION ROUTES (Public & Protected)
 router.post('/auth/login', authController.login);
@@ -25,6 +36,7 @@ router.put('/auth/profile', verifyToken, authController.updateProfile);
 router.get('/auth/demo-users', authController.getDemoUsers);
 
 // 2. DASHBOARD ROUTES (All Authenticated Roles)
+router.get('/public/stats', dashboardController.getPublicStats);
 router.get('/dashboard/stats', verifyToken, dashboardController.getDashboardStats);
 
 // 3. SPECIES MANAGEMENT ROUTES

@@ -149,6 +149,95 @@ LEFT JOIN Species_Observation so ON s.Species_ID = so.Species_ID
 WHERE s.Species_ID = 1
 GROUP BY s.Species_ID, s.Common_Name, s.Scientific_Name, s.Species_Type, s.Family, s.Conservation_Status, s.Population_Estimate;`,
   },
+  {
+    id: 11,
+    title: 'Query 11: Species with Population Above Overall Average',
+    concept: 'Scalar Subquery in WHERE Clause',
+    description: 'Demonstrates a scalar subquery calculating the global average population and filtering species exceeding it.',
+    sql: `SELECT 
+    Species_ID, Common_Name, Scientific_Name, Species_Type, Conservation_Status, Population_Estimate
+FROM Species
+WHERE Population_Estimate > (SELECT AVG(Population_Estimate) FROM Species)
+ORDER BY Population_Estimate DESC;`,
+  },
+  {
+    id: 12,
+    title: 'Query 12: Researchers with Surveys Exceeding Average Threshold',
+    concept: 'Subquery in HAVING Clause & Derived Table',
+    description: 'Finds researchers whose total field survey count exceeds the average surveys conducted per researcher.',
+    sql: `SELECT 
+    r.Researcher_ID, r.Name AS Researcher_Name, r.Organization, r.Specialization,
+    COUNT(so.Observation_ID) AS Total_Surveys
+FROM Researchers r
+JOIN Species_Observation so ON r.Researcher_ID = so.Researcher_ID
+GROUP BY r.Researcher_ID, r.Name, r.Organization, r.Specialization
+HAVING COUNT(so.Observation_ID) > (
+    SELECT AVG(survey_count) FROM (
+        SELECT COUNT(Observation_ID) AS survey_count FROM Species_Observation GROUP BY Researcher_ID
+    ) AS avg_table
+)
+ORDER BY Total_Surveys DESC;`,
+  },
+  {
+    id: 13,
+    title: 'Query 13: Habitats Containing Multiple Recorded Species',
+    concept: 'Subquery with IN & Aggregation Filter',
+    description: 'Retrieves all habitats associated with at least 3 distinct recorded species in the junction table.',
+    sql: `SELECT 
+    Habitat_ID, Habitat_Name, Habitat_Type, Area, Protection_Status
+FROM Habitat
+WHERE Habitat_ID IN (
+    SELECT Habitat_ID
+    FROM Species_Habitat
+    GROUP BY Habitat_ID
+    HAVING COUNT(DISTINCT Species_ID) >= 3
+)
+ORDER BY Area DESC;`,
+  },
+  {
+    id: 14,
+    title: 'Query 14: Species Facing Critical Severity Threats',
+    concept: 'Multi-Row Subquery with IN Predicate',
+    description: 'Finds species facing Critical threats using a subquery on the Species_Threat junction table.',
+    sql: `SELECT 
+    Species_ID, Common_Name, Scientific_Name, Conservation_Status, Population_Estimate
+FROM Species
+WHERE Species_ID IN (
+    SELECT st.Species_ID
+    FROM Species_Threat st
+    JOIN Threat t ON st.Threat_ID = t.Threat_ID
+    WHERE t.Severity = 'Critical'
+)
+ORDER BY Population_Estimate ASC;`,
+  },
+  {
+    id: 15,
+    title: 'Query 15: Conservation Programs with Budget Above Average',
+    concept: 'Scalar Subquery with Aggregate Function AVG()',
+    description: 'Filters programs whose allocated budget is higher than the mean program funding across all initiatives.',
+    sql: `SELECT 
+    Program_ID, Program_Name, Budget, Status, Start_Date, End_Date
+FROM Conservation_Program
+WHERE Budget > (SELECT AVG(Budget) FROM Conservation_Program)
+ORDER BY Budget DESC;`,
+  },
+  {
+    id: 16,
+    title: 'Query 16: Habitats with Zero Critical Threats Recorded',
+    concept: 'Correlated Subquery with NOT EXISTS Predicate',
+    description: 'Evaluates habitats that currently have no species linked to Critical severity extinction pressures.',
+    sql: `SELECT 
+    h.Habitat_ID, h.Habitat_Name, h.Habitat_Type, h.Area, h.Protection_Status
+FROM Habitat h
+WHERE NOT EXISTS (
+    SELECT 1 
+    FROM Species_Habitat sh
+    JOIN Species_Threat st ON sh.Species_ID = st.Species_ID
+    JOIN Threat t ON st.Threat_ID = t.Threat_ID
+    WHERE sh.Habitat_ID = h.Habitat_ID AND t.Severity = 'Critical'
+)
+ORDER BY h.Area DESC;`,
+  },
 ];
 
 exports.getQueriesList = (req, res) => {
@@ -174,10 +263,11 @@ exports.executeQuery = async (req, res) => {
       queryMeta = found;
     } else if (customSql) {
       sqlToRun = customSql.trim();
-      // Security check for read-only execution in console
-      const isReadOnly = /^(SELECT|EXPLAIN|PRAGMA)/i.test(sqlToRun);
-      if (!isReadOnly && req.user?.role !== 'Admin') {
-        return res.status(403).json({ success: false, message: 'Custom query execution is restricted to SELECT queries for security.' });
+      // Educational SQL Console: Strictly enforce read-only statements (SELECT, EXPLAIN, WITH)
+      const isReadOnly = /^(SELECT|EXPLAIN|WITH)\b/i.test(sqlToRun);
+      const isDestructive = /\b(DROP|TRUNCATE|ALTER|DELETE|UPDATE|INSERT)\b/i.test(sqlToRun);
+      if (!isReadOnly || isDestructive) {
+        return res.status(403).json({ success: false, message: 'Educational SQL console is strictly restricted to read-only analytical queries (SELECT, EXPLAIN, WITH). Destructive operations are prohibited.' });
       }
     } else {
       return res.status(400).json({ success: false, message: 'Query ID or SQL string required.' });
@@ -187,6 +277,15 @@ exports.executeQuery = async (req, res) => {
     const rows = await db.query(sqlToRun);
     const diff = process.hrtime(startTime);
     const executionTimeMs = (diff[0] * 1000 + diff[1] / 1e6).toFixed(2);
+
+    // Redact password hashes if Users table is queried
+    if (Array.isArray(rows)) {
+      rows.forEach(r => {
+        if (r && typeof r === 'object' && 'Password' in r) {
+          r.Password = '[PROTECTED_HASH]';
+        }
+      });
+    }
 
     const columns = rows.length > 0 ? Object.keys(rows[0]) : [];
 

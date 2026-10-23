@@ -17,7 +17,9 @@ import { ResearchersPage } from './pages/ResearchersPage';
 import { ThreatsPage } from './pages/ThreatsPage';
 import { ConservationPage } from './pages/ConservationPage';
 import { ReportsPage } from './pages/ReportsPage';
+import { SqlConsolePage } from './pages/SqlConsolePage';
 import { SettingsPage } from './pages/SettingsPage';
+import { ProfilePage } from './pages/ProfilePage';
 
 function MainApp() {
   const { user, isAuthenticated, loading, login } = useAuth();
@@ -71,7 +73,9 @@ function MainApp() {
     threats: { title: 'Threat Risk Analysis', subtitle: 'Ecological and anthropogenic extinction pressures' },
     conservation: { title: 'Conservation Initiatives', subtitle: 'State recovery programs and milestone activities' },
     reports: { title: 'Reports & Analytics', subtitle: 'SQL-driven aggregated reports with CSV exports' },
-    settings: { title: 'System Settings', subtitle: 'Profile, RBAC permissions, and database diagnostics' },
+    'sql-console': { title: 'SQL Query Console', subtitle: 'Interactive SQL execution and relational query demonstration' },
+    profile: { title: 'User Profile', subtitle: 'Authenticated credentials, authorization level, and contact details' },
+    settings: { title: 'System Settings', subtitle: 'System diagnostics and RBAC matrix' },
   };
 
   if (loading) {
@@ -79,7 +83,7 @@ function MainApp() {
       <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-main)', color: 'var(--text-muted)' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🌿</div>
-          <p>Connecting to Relational DBMS Engine...</p>
+          <p>Loading Biodiversity Management Platform...</p>
         </div>
       </div>
     );
@@ -134,6 +138,8 @@ function MainApp() {
           {activeTab === 'threats' && <ThreatsPage />}
           {activeTab === 'conservation' && <ConservationPage />}
           {activeTab === 'reports' && <ReportsPage />}
+          {activeTab === 'sql-console' && <SqlConsolePage />}
+          {activeTab === 'profile' && <ProfilePage />}
           {activeTab === 'settings' && <SettingsPage />}
         </main>
       </div>

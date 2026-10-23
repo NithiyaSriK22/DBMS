@@ -213,7 +213,7 @@ export const HabitatsPage = () => {
                   {h.Description || 'No detailed ecological description provided.'}
                 </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', background: '#f8fafc', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', background: 'var(--natural-pale-sage)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
                   <div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Cover Area</div>
                     <div style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)' }}>
@@ -296,7 +296,7 @@ export const HabitatsPage = () => {
                     <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>No species currently linked in Species_Habitat junction table.</div>
                   ) : (
                     viewHabitat.species?.map((s) => (
-                      <div key={s.Species_ID} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0.75rem', background: '#f8fafc', borderRadius: 'var(--radius-sm)' }}>
+                      <div key={s.Species_ID} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0.75rem', background: 'var(--natural-pale-sage)', borderRadius: 'var(--radius-sm)' }}>
                         <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.85rem' }}>{s.Common_Name} ({s.Scientific_Name})</span>
                         <span style={{ fontSize: '0.75rem', color: 'var(--emerald-600)', fontWeight: 600 }}>Pop: {Number(s.habitatPopulation || 0).toLocaleString()}</span>
                       </div>

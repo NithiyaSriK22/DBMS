@@ -168,7 +168,7 @@ export const ThreatsPage = () => {
         <div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Threat Analysis & Risks</h2>
           <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
-            Anthropogenic and environmental drivers of extinction mapped across vulnerable taxa in 3NF.
+            Anthropogenic and environmental drivers of extinction mapped across vulnerable taxa.
           </p>
         </div>
 
@@ -375,7 +375,7 @@ export const ThreatsPage = () => {
                     <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>No species currently mapped to this threat.</div>
                   ) : (
                     viewThreat.affectedSpecies?.map((s) => (
-                      <div key={s.Species_ID} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0.75rem', background: '#f8fafc', borderRadius: 'var(--radius-sm)' }}>
+                      <div key={s.Species_ID} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0.75rem', background: 'var(--natural-pale-sage)', borderRadius: 'var(--radius-sm)' }}>
                         <div>
                           <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.85rem' }}>{s.Common_Name}</div>
                           <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{s.impactDescription || 'High degradation impact'}</div>

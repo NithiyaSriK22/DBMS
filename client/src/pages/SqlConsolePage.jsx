@@ -197,14 +197,14 @@ export const SqlConsolePage = () => {
               <div>
                 <pre
                   style={{
-                    background: '#06281c',
+                    background: 'var(--forest-deep)',
                     padding: '1rem',
                     borderRadius: 'var(--radius-sm)',
-                    color: '#6ee7b7',
+                    color: 'var(--natural-pale-sage)',
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.825rem',
                     overflowX: 'auto',
-                    border: '1px solid rgba(5, 150, 105, 0.2)',
+                    border: '1px solid rgba(196, 164, 91, 0.25)',
                     lineHeight: '1.5',
                   }}
                 >
@@ -212,7 +212,7 @@ export const SqlConsolePage = () => {
                 </pre>
 
                 <div style={{ marginTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.775rem', color: 'var(--text-secondary)' }}>
-                  <BookOpen size={14} color="#d97706" />
+                  <BookOpen size={14} color="var(--accent-gold)" />
                   <span><strong>DBMS Concept:</strong> {currentQuery?.concept} — {currentQuery?.description}</span>
                 </div>
               </div>
@@ -224,9 +224,9 @@ export const SqlConsolePage = () => {
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.85rem',
                     minHeight: '120px',
-                    background: '#06281c',
-                    color: '#6ee7b7',
-                    border: '1px solid rgba(5, 150, 105, 0.2)',
+                    background: 'var(--forest-deep)',
+                    color: 'var(--natural-pale-sage)',
+                    border: '1px solid rgba(47, 118, 81, 0.35)',
                   }}
                   value={customSql}
                   onChange={(e) => setCustomSql(e.target.value)}
@@ -241,8 +241,8 @@ export const SqlConsolePage = () => {
 
           {/* Results Area */}
           <div className="table-container" style={{ minHeight: '260px' }}>
-            <div style={{ padding: '0.75rem 1rem', background: '#f1f7f4', borderBottom: '1px solid #d1e7dd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontWeight: 700, fontSize: '0.85rem', color: '#065f46' }}>
+            <div style={{ padding: '0.75rem 1rem', background: 'var(--natural-pale-sage)', borderBottom: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--forest-deep)' }}>
                 Query Execution Results {executionResult ? `(${executionResult.rowCount} rows returned)` : ''}
               </span>
               {executionResult && (

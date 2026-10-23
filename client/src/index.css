@@ -1,75 +1,110 @@
 :root {
-  /* Crisp White Canvas & Rich Pine / Forest Green Theme */
-  --bg-main: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-surface-elevated: #ffffff;
-  --bg-surface-glass: rgba(255, 255, 255, 0.94);
-  --bg-card: #ffffff;
-  --bg-card-hover: #f2f9f5;
-  
-  --border-subtle: #e2e8f0;
-  --border-medium: #cbd5e1;
-  --border-bright: #045c34;
+  /* ==========================================================================
+     THE LIVING FOREST DESIGN SYSTEM (BMS)
+     Curated Palette: Deep Forest, Evergreen, Emerald, Moss, Sage, Warm Ivory, Cream, Gold
+     ========================================================================== */
 
-  /* High Contrast Typography on White Background */
-  --text-primary: #0f172a;          /* Deep dark slate / charcoal */
-  --text-secondary: #334155;        /* Refined readable slate */
-  --text-muted: #64748b;            /* Neutral slate for metadata & labels */
-  --text-dim: #94a3b8;              /* Soft slate for placeholders */
-  
-  /* Rich Pine & Forest Green Tones (Referencing Vision & Mission Brand) */
-  --text-forest-dark: #033820;      /* Deep evergreen title tone */
-  --text-forest-highlight: #045c34; /* Rich pine forest green */
-  --text-forest-bright: #057a44;    /* Classic vibrant forest green */
-  --text-forest-sage: #034426;      /* Deep pine woodland green */
-  --text-forest-canopy: #022817;    /* Deep canopy pine tone */
+  /* Primary Forest Colors */
+  --forest-deep: #153D2B;         /* Deep Forest Green - Main anchors, display headings, brand header */
+  --forest-evergreen: #20563D;    /* Evergreen - Primary actions, active highlights, dark panels */
+  --forest-emerald: #2F7651;      /* Emerald - Links, focus rings, interactive accents */
+  --forest-canopy: #0D261B;       /* Deepest canopy tone */
 
-  --emerald-900: #022314;
-  --emerald-800: #033820;
-  --emerald-700: #034426;
-  --emerald-600: #045c34;
-  --emerald-500: #057a44;
-  --emerald-400: #089354;
-  --emerald-300: #10b981;
-  --emerald-200: #6ee7b7;
-  --emerald-100: #d1fae5;
-  --emerald-50: #ecfdf5;
-  --emerald-glow: rgba(4, 92, 52, 0.18);
+  /* Secondary Natural Colors */
+  --natural-moss: #788B50;        /* Moss Green - Habitat elements, secondary badges, organic accents */
+  --natural-sage: #A8B99A;        /* Muted Sage - Borders, dividers, subtle control surfaces */
+  --natural-pale-sage: #E2E9DA;   /* Pale Sage - Soft card surfaces, table headers, hover tint */
+  --natural-pine: #284F3B;        /* Mid-tone pine */
 
-  --accent-gold: #d97706;
-  --accent-amber: #f59e0b;
-  --accent-blue: #0284c7;
-  --accent-purple: #9333ea;
-  
-  /* Status Colors */
-  --status-crit-bg: #fef2f2;
-  --status-crit-text: #b91c1c;
-  --status-crit-border: #fecaca;
+  /* Warm Neutral Surfaces */
+  --neutral-ivory: #F5F2E8;       /* Warm Ivory - Main page backgrounds & large canvases */
+  --neutral-cream: #EDE8D8;       /* Cream - Alternate sections, panels, soft content areas */
+  --neutral-white: #FFFFFF;       /* Pure White - Data inputs, high-contrast card faces */
+  --neutral-parchment: #E8E2D0;   /* Deep parchment separator */
 
-  --status-end-bg: #fff7ed;
-  --status-end-text: #c2410c;
-  --status-end-border: #fed7aa;
+  /* Premium Accents */
+  --accent-gold: #C4A45B;         /* Muted Gold - Fine borders, scientific emblems, badges */
+  --accent-gold-light: #E5CD92;   /* Soft gold highlight */
+  --accent-brown: #705744;        /* Earth Brown - Natural habitat and soil indicators */
+  --accent-amber: #B45309;        /* Warm amber warning */
+  --accent-blue: #0284C7;         /* Marine aquatic indicator */
+  --accent-purple: #7E22CE;       /* Flora taxonomy highlight */
 
-  --status-vuln-bg: #fffbeb;
-  --status-vuln-text: #b45309;
-  --status-vuln-border: #fde68a;
+  /* Semantic UI Tokens mapped to The Living Forest */
+  --bg-main: #F5F2E8;             /* Warm Ivory canvas */
+  --bg-surface: #FFFFFF;          /* Pure White cards */
+  --bg-surface-elevated: #EDE8D8; /* Cream secondary panels */
+  --bg-surface-glass: rgba(245, 242, 232, 0.94);
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F2EFE5;
+  --bg-forest: #153D2B;
+  --bg-sidebar: #113424;
 
-  --status-nt-bg: #f0fdfa;
-  --status-nt-text: #0f766e;
-  --status-nt-border: #99f6e4;
+  --border-subtle: #E2E9DA;
+  --border-medium: #A8B99A;
+  --border-bright: #2F7651;
+  --border-gold: rgba(196, 164, 91, 0.4);
 
-  --status-lc-bg: #f0fdf4;
-  --status-lc-text: #045c34;
-  --status-lc-border: #bbf7d0;
+  /* Typography Colors */
+  --text-primary: #20352A;        /* Deep natural slate-forest text */
+  --text-secondary: #526356;      /* Readable soft moss slate */
+  --text-muted: #768579;          /* Neutral muted label text */
+  --text-dim: #9EAEA2;            /* Subtle placeholder text */
+  --text-light: #F5F2E8;          /* Light Warm Ivory on dark green surfaces */
+  --text-gold: #C4A45B;           /* Muted gold text accent */
 
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Legacy variable bridges for complete backward compatibility */
+  --text-forest-dark: #153D2B;
+  --text-forest-highlight: #20563D;
+  --text-forest-bright: #2F7651;
+  --text-forest-sage: #788B50;
+  --text-forest-canopy: #0D261B;
+
+  --emerald-900: #0D261B;
+  --emerald-800: #153D2B;
+  --emerald-700: #20563D;
+  --emerald-600: #2F7651;
+  --emerald-500: #3E8B62;
+  --emerald-400: #5FA581;
+  --emerald-300: #788B50;
+  --emerald-200: #A8B99A;
+  --emerald-100: #E2E9DA;
+  --emerald-50: #F5F2E8;
+  --emerald-glow: rgba(47, 118, 81, 0.18);
+
+  /* Conservation IUCN Status Colors - Harmonious & Accessible */
+  --status-crit-bg: #FEF2F2;
+  --status-crit-text: #991B1B;
+  --status-crit-border: #FECACA;
+
+  --status-end-bg: #FFF7ED;
+  --status-end-text: #9A3412;
+  --status-end-border: #FED7AA;
+
+  --status-vuln-bg: #FEFCE8;
+  --status-vuln-text: #854D0E;
+  --status-vuln-border: #FEF08A;
+
+  --status-nt-bg: #F0FDFA;
+  --status-nt-text: #115E59;
+  --status-nt-border: #99F6E4;
+
+  --status-lc-bg: #E2E9DA;
+  --status-lc-text: #153D2B;
+  --status-lc-border: #A8B99A;
+
+  /* Typography Stack */
+  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 4px 14px rgba(3, 56, 32, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 32px rgba(3, 56, 32, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-glow: 0 0 20px rgba(4, 92, 52, 0.15);
+  /* Elevation Shadows with Soft Organic Tints */
+  --shadow-sm: 0 1px 3px rgba(21, 61, 43, 0.05), 0 1px 2px rgba(21, 61, 43, 0.03);
+  --shadow-md: 0 4px 14px rgba(21, 61, 43, 0.07), 0 1px 4px rgba(21, 61, 43, 0.04);
+  --shadow-lg: 0 12px 32px rgba(21, 61, 43, 0.1), 0 3px 10px rgba(21, 61, 43, 0.04);
+  --shadow-glow: 0 0 24px rgba(47, 118, 81, 0.2);
+  --shadow-gold: 0 4px 20px rgba(196, 164, 91, 0.25);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -78,23 +113,32 @@
   --radius-full: 9999px;
 }
 
+/* ==========================================================================
+   BASE RESET & GLOBAL TYPOGRAPHY
+   ========================================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--bg-main);
   color: var(--text-primary);
   font-family: var(--font-body);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* Background Atmosphere */
+/* Forest Environmental Atmosphere Backdrop */
 body::before {
   content: '';
   position: fixed;
@@ -103,9 +147,9 @@ body::before {
   width: 100vw;
   height: 100vh;
   background: 
-    radial-gradient(circle at 12% 15%, rgba(5, 150, 105, 0.04) 0%, transparent 45%),
-    radial-gradient(circle at 88% 85%, rgba(4, 120, 87, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(6, 78, 59, 0.02) 0%, transparent 60%);
+    radial-gradient(circle at 10% 12%, rgba(32, 86, 61, 0.05) 0%, transparent 45%),
+    radial-gradient(circle at 90% 88%, rgba(120, 139, 80, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 50% 40%, rgba(21, 61, 43, 0.02) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -118,60 +162,69 @@ body::before {
   flex-direction: column;
 }
 
-/* Typography */
+/* Refined Editorial Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  color: var(--forest-deep);
+  letter-spacing: -0.015em;
   font-weight: 700;
-  color: #033820;
-  letter-spacing: -0.02em;
 }
 
 h1 {
-  color: #033820;
-  font-weight: 800;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  line-height: 1.2;
 }
 
 h2 {
-  color: #033820;
-  font-weight: 700;
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  line-height: 1.25;
 }
 
-h3, h4, h5, h6 {
-  color: #033820;
+h3 {
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.35;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-body);
   font-weight: 600;
+  color: var(--forest-deep);
 }
 
 p {
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 strong, b {
-  color: #033820;
+  color: var(--forest-deep);
+  font-weight: 600;
 }
 
-/* Custom Scrollbar */
+/* Custom Forest Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--neutral-cream);
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--natural-sage);
   border-radius: var(--radius-full);
-  border: 2px solid #f1f5f9;
+  border: 2px solid var(--neutral-cream);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--emerald-600);
+  background: var(--forest-emerald);
 }
 
-/* Base Utility Classes */
+/* ==========================================================================
+   CARDS, PANELS & CONTAINERS
+   ========================================================================== */
 .glass-panel {
   background: var(--bg-surface-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -181,107 +234,141 @@ strong, b {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 1.25rem;
+  padding: 1.35rem;
   box-shadow: var(--shadow-sm);
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .card:hover {
-  border-color: rgba(4, 92, 52, 0.35);
+  border-color: rgba(47, 118, 81, 0.45);
   box-shadow: var(--shadow-md);
 }
 
 .card-elevated {
-  background: var(--bg-surface-elevated);
+  background: var(--neutral-white);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
 
-/* Buttons */
+.card-forest {
+  background: linear-gradient(135deg, var(--forest-deep) 0%, #0D261B 100%);
+  color: var(--text-light);
+  border: 1px solid rgba(196, 164, 91, 0.25);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.card-forest h3, .card-forest h2, .card-forest strong {
+  color: #FFFFFF;
+}
+
+.card-forest p {
+  color: var(--natural-pale-sage);
+}
+
+/* ==========================================================================
+   BUTTONS & INTERACTIVE ELEMENTS
+   ========================================================================== */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
+  padding: 0.625rem 1.25rem;
   border-radius: var(--radius-md);
   font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  border: none;
-  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   user-select: none;
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
+/* Primary Button: Rich Evergreen with Gold Touch */
 .btn-primary {
-  background: linear-gradient(135deg, #057a44 0%, #034426 100%);
-  color: #ffffff;
-  box-shadow: 0 3px 12px rgba(4, 92, 52, 0.28);
+  background: linear-gradient(135deg, var(--forest-evergreen) 0%, var(--forest-deep) 100%);
+  color: var(--text-light);
+  border: 1px solid rgba(196, 164, 91, 0.3);
+  box-shadow: 0 3px 12px rgba(21, 61, 43, 0.2);
 }
+
 .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #089354 0%, #045c34 100%);
-  box-shadow: 0 4px 18px rgba(4, 92, 52, 0.38);
+  background: linear-gradient(135deg, var(--forest-emerald) 0%, var(--forest-evergreen) 100%);
+  color: #FFFFFF;
+  box-shadow: 0 5px 18px rgba(21, 61, 43, 0.3);
   transform: translateY(-1px);
 }
 
+/* Secondary Button: Cream/Pale Sage with Forest Green text */
 .btn-secondary {
-  background: #ffffff;
-  color: var(--text-primary);
-  border: 1px solid var(--border-medium);
+  background: var(--neutral-cream);
+  color: var(--forest-deep);
+  border: 1px solid var(--natural-sage);
   box-shadow: var(--shadow-sm);
 }
+
 .btn-secondary:hover:not(:disabled) {
-  background: var(--bg-card-hover);
-  border-color: var(--emerald-600);
-  color: #033820;
+  background: #FFFFFF;
+  border-color: var(--forest-emerald);
+  color: var(--forest-deep);
+  box-shadow: var(--shadow-md);
 }
 
-.btn-danger {
-  background: #fee2e2;
-  color: #b91c1c;
-  border: 1px solid #fecaca;
-}
-.btn-danger:hover:not(:disabled) {
-  background: #dc2626;
-  color: #ffffff;
-  border-color: #dc2626;
-}
-
+/* Outline Button: Transparent with Emerald border */
 .btn-outline {
   background: transparent;
-  color: #045c34;
-  border: 1px solid #045c34;
-}
-.btn-outline:hover:not(:disabled) {
-  background: #045c34;
-  color: #ffffff;
+  color: var(--forest-evergreen);
+  border: 1px solid var(--forest-evergreen);
 }
 
+.btn-outline:hover:not(:disabled) {
+  background: var(--forest-evergreen);
+  color: var(--text-light);
+}
+
+/* Destructive Button: Controlled Red */
+.btn-danger {
+  background: #FEF2F2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #DC2626;
+  color: #FFFFFF;
+  border-color: #DC2626;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
+/* Button Sizing */
 .btn-sm {
   padding: 0.35rem 0.75rem;
-  font-size: 0.75rem;
+  font-size: 0.775rem;
   border-radius: var(--radius-sm);
 }
 
 .btn-lg {
   padding: 0.85rem 1.75rem;
   font-size: 1rem;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
 }
 
-/* Badges */
+/* ==========================================================================
+   BADGES & LABELS
+   ========================================================================== */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.2rem 0.6rem;
+  padding: 0.25rem 0.65rem;
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   font-weight: 600;
@@ -316,49 +403,60 @@ strong, b {
 }
 
 .badge-active {
-  background: #ecfdf5;
-  color: #034426;
-  border: 1px solid #a7f3d0;
+  background: var(--natural-pale-sage);
+  color: var(--forest-deep);
+  border: 1px solid var(--natural-sage);
 }
 .badge-planned {
-  background: #f0f9ff;
-  color: #0284c7;
-  border: 1px solid #bae6fd;
+  background: #F0F9FF;
+  color: var(--accent-blue);
+  border: 1px solid #BAE6FD;
 }
 .badge-completed {
-  background: #faf5ff;
-  color: #9333ea;
-  border: 1px solid #e9d5ff;
+  background: #FAF5FF;
+  color: var(--accent-purple);
+  border: 1px solid #E9D5FF;
 }
+
 .badge-role {
-  background: #ecfdf5;
-  color: #034426;
-  border: 1px solid #a7f3d0;
+  background: var(--neutral-cream);
+  color: var(--forest-deep);
+  border: 1px solid var(--natural-sage);
   font-family: var(--font-mono);
   font-size: 0.7rem;
 }
 
-/* Forms & Inputs */
+.badge-gold {
+  background: rgba(196, 164, 91, 0.15);
+  color: #8C6D27;
+  border: 1px solid rgba(196, 164, 91, 0.45);
+}
+
+/* ==========================================================================
+   FORMS & INPUT FIELDS
+   ========================================================================== */
 .form-group {
   margin-bottom: 1.15rem;
 }
+
 .form-label {
   display: block;
   font-size: 0.825rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   margin-bottom: 0.4rem;
 }
+
 .form-label .required {
-  color: #dc2626;
+  color: #DC2626;
   margin-left: 0.2rem;
 }
 
 .form-input, .form-select, .form-textarea {
   width: 100%;
   padding: 0.65rem 0.9rem;
-  background: #ffffff;
-  border: 1px solid var(--border-medium);
+  background: #FFFFFF;
+  border: 1px solid var(--natural-sage);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -368,9 +466,9 @@ strong, b {
 
 .form-input:focus, .form-select:focus, .form-textarea:focus {
   outline: none;
-  border-color: var(--emerald-500);
-  box-shadow: 0 0 0 3px var(--emerald-glow);
-  background: #ffffff;
+  border-color: var(--forest-emerald);
+  box-shadow: 0 0 0 3px rgba(47, 118, 81, 0.2);
+  background: #FFFFFF;
 }
 
 .form-input::placeholder, .form-textarea::placeholder {
@@ -378,23 +476,25 @@ strong, b {
 }
 
 .form-select option {
-  background: #ffffff;
+  background: #FFFFFF;
   color: var(--text-primary);
 }
 
 .form-textarea {
-  min-height: 85px;
+  min-height: 90px;
   resize: vertical;
 }
 
-/* Data Tables with Spacious Padding & Horizontal Protection */
+/* ==========================================================================
+   DATA TABLES (Editorial Scientific Presentation)
+   ========================================================================== */
 .table-container {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
-  background: var(--bg-card);
+  background: #FFFFFF;
   box-shadow: var(--shadow-sm);
   margin-top: 0.5rem;
 }
@@ -408,20 +508,20 @@ strong, b {
 }
 
 .data-table th {
-  background: #edf7f2;
-  color: #033820;
+  background: var(--neutral-cream);
+  color: var(--forest-deep);
   font-weight: 700;
   padding: 1rem 1.25rem;
-  font-size: 0.8rem;
+  font-size: 0.775rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid #c7e6d4;
+  border-bottom: 1px solid var(--natural-sage);
   white-space: nowrap;
 }
 
 .data-table td {
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--natural-pale-sage);
   color: var(--text-primary);
   vertical-align: middle;
 }
@@ -431,20 +531,22 @@ strong, b {
 }
 
 .data-table tbody tr:hover {
-  background: #f8fafc;
+  background: rgba(226, 233, 218, 0.4);
 }
 
 .data-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* Modals */
+/* ==========================================================================
+   MODALS
+   ========================================================================== */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(21, 61, 43, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -454,10 +556,10 @@ strong, b {
 }
 
 .modal-content {
-  background: #ffffff;
+  background: #FFFFFF;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg), 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg), 0 20px 40px rgba(21, 61, 43, 0.15);
   width: 100%;
   max-width: 680px;
   max-height: 90vh;
@@ -475,12 +577,13 @@ strong, b {
   justify-content: space-between;
   position: sticky;
   top: 0;
-  background: #ffffff;
+  background: #FFFFFF;
   z-index: 10;
 }
 
 .modal-body {
   padding: 1.5rem;
+  background: #FFFFFF;
 }
 
 .modal-footer {
@@ -490,14 +593,16 @@ strong, b {
   align-items: center;
   justify-content: flex-end;
   gap: 0.75rem;
-  background: #f8fafc;
+  background: var(--neutral-cream);
   position: sticky;
   bottom: 0;
   z-index: 10;
   flex-wrap: wrap;
 }
 
-/* Notifications / Toast */
+/* ==========================================================================
+   TOAST NOTIFICATIONS
+   ========================================================================== */
 .toast-container {
   position: fixed;
   bottom: 1.5rem;
@@ -517,25 +622,27 @@ strong, b {
   padding: 0.85rem 1.15rem;
   border-radius: var(--radius-md);
   font-size: 0.875rem;
-  color: #ffffff;
+  color: #FFFFFF;
   box-shadow: var(--shadow-lg);
   animation: slideInRight 0.2s ease;
 }
 
 .toast-success {
-  background: #065f46;
-  border: 1px solid #059669;
+  background: var(--forest-deep);
+  border: 1px solid var(--forest-emerald);
 }
 .toast-error {
-  background: #991b1b;
-  border: 1px solid #dc2626;
+  background: #991B1B;
+  border: 1px solid #DC2626;
 }
 .toast-info {
-  background: #0369a1;
-  border: 1px solid #0284c7;
+  background: var(--forest-evergreen);
+  border: 1px solid var(--accent-gold);
 }
 
-/* Animations */
+/* ==========================================================================
+   ANIMATIONS & TRANSITIONS
+   ========================================================================== */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -551,7 +658,9 @@ strong, b {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* Responsive Grid helpers */
+/* ==========================================================================
+   RESPONSIVE GRIDS & LAYOUT
+   ========================================================================== */
 .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -573,7 +682,16 @@ strong, b {
   gap: 1.25rem;
 }
 
-/* Fluid Page Wrapper */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+}
+.chart-col-5 { grid-column: span 5; }
+.chart-col-4 { grid-column: span 4; }
+.chart-col-3 { grid-column: span 3; }
+.chart-col-6 { grid-column: span 6; }
+
 .page-container {
   padding: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 3vw, 2.5rem);
   display: flex;
@@ -584,7 +702,7 @@ strong, b {
   margin: 0 auto;
 }
 
-/* Responsive Navigation, Header & Buttons */
+/* Responsive Navigation Breakpoints */
 .mobile-sidebar-toggle {
   display: none !important;
 }
@@ -617,26 +735,28 @@ strong, b {
   .grid-6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .charts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chart-col-5, .chart-col-4, .chart-col-3, .chart-col-6 { grid-column: span 1; }
 }
 
 @media (max-width: 768px) {
-  .grid-6, .grid-4, .grid-3, .grid-2 {
+  .grid-6, .grid-4, .grid-3, .grid-2, .charts-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+  .chart-col-5, .chart-col-4, .chart-col-3, .chart-col-6 {
+    grid-column: span 1;
   }
   
   .modal-overlay {
     padding: 0.5rem;
   }
-  
   .modal-content {
     max-height: 95vh;
   }
-  
   .modal-body {
     padding: 1rem;
   }
-  
   .modal-header, .modal-footer {
     padding: 0.85rem 1rem;
   }

@@ -202,9 +202,25 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
       {/* Header & Action Bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Species Management</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Species Management</h2>
+            <span
+              className="badge"
+              style={{
+                background: 'rgba(16, 185, 129, 0.1)',
+                color: 'var(--emerald-600)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                fontWeight: 700,
+                fontSize: '0.8rem',
+                padding: '0.2rem 0.6rem',
+                borderRadius: '999px',
+              }}
+            >
+              {speciesList.length} {speciesList.length === 1 ? 'Species' : 'Species Cataloged'}
+            </span>
+          </div>
           <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)' }}>
-            Curate and manage biological records, IUCN conservation statuses, and population census in 3NF.
+            Curate and manage biological records, IUCN conservation statuses, and population census.
           </p>
         </div>
 
@@ -374,9 +390,9 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                   </td>
                   <td style={{ whiteSpace: 'nowrap' }}>
                     <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.775rem', color: 'var(--text-muted)' }}>
-                      <span title="Linked Habitats" style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>🌳 {item.habitatCount || 0}</span>
-                      <span title="Threats" style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>⚠️ {item.threatCount || 0}</span>
-                      <span title="Observations" style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>👁️ {item.observationCount || 0}</span>
+                      <span title="Linked Habitats" style={{ background: 'var(--natural-pale-sage)', color: 'var(--forest-deep)', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid var(--border-subtle)' }}>🌳 {item.habitatCount || 0}</span>
+                      <span title="Threats" style={{ background: 'var(--natural-pale-sage)', color: 'var(--forest-deep)', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid var(--border-subtle)' }}>⚠️ {item.threatCount || 0}</span>
+                      <span title="Observations" style={{ background: 'var(--natural-pale-sage)', color: 'var(--forest-deep)', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid var(--border-subtle)' }}>👁️ {item.observationCount || 0}</span>
                     </div>
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -645,7 +661,7 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                   style={{
                     display: 'flex',
                     borderBottom: '1px solid var(--border-subtle)',
-                    background: '#f8fafc',
+                    background: 'var(--neutral-cream)',
                     padding: '0 1rem',
                   }}
                 >
@@ -771,7 +787,7 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
                               </div>
                             </div>
                             {obs.Notes && (
-                              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', background: '#f8fafc', padding: '0.5rem', borderRadius: 'var(--radius-sm)' }}>
+                              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', background: 'var(--natural-pale-sage)', padding: '0.5rem', borderRadius: 'var(--radius-sm)' }}>
                                 "{obs.Notes}"
                               </p>
                             )}
@@ -855,8 +871,9 @@ export const SpeciesPage = ({ openAddDirectly = false }) => {
       <ConfirmationModal
         isOpen={!!deleteTarget}
         title={`Delete "${deleteTarget?.Common_Name}"?`}
-        message={`Are you sure you want to delete species record #${deleteTarget?.Species_ID} (${deleteTarget?.Common_Name})? This will cascade-delete linked entries in Species_Habitat, Species_Threat, and Species_Observation.`}
-        confirmText="Confirm SQL Deletion"
+        message={`Are you sure you want to delete "${deleteTarget?.Common_Name}" (${deleteTarget?.Scientific_Name}, ID #${deleteTarget?.Species_ID}) from the database? This action is permanent and cannot be undone.`}
+        confirmText="Confirm Deletion"
+        cancelText="Cancel"
         isDanger={true}
         loading={deleteLoading}
         onConfirm={handleConfirmDelete}

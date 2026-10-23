@@ -9,13 +9,13 @@ export const SpeciesCategoryDonutChart = ({ data = [] }) => {
   }
 
   const colorPalette = {
-    Mammal: '#10b981',
-    Bird: '#38bdf8',
-    Reptile: '#f59e0b',
-    Amphibian: '#a855f7',
-    Fish: '#06b6d4',
-    Plant: '#84cc16',
-    Insect: '#ec4899',
+    Mammal: '#20563D',
+    Bird: '#2B6E7F',
+    Reptile: '#C4A45B',
+    Amphibian: '#788B50',
+    Fish: '#2F7651',
+    Plant: '#4A6B3D',
+    Insect: '#705744',
   };
 
   const total = data.reduce((acc, curr) => acc + curr.count, 0);
@@ -95,10 +95,10 @@ export const SpeciesCategoryDonutChart = ({ data = [] }) => {
             pointerEvents: 'none',
           }}
         >
-          <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+          <span style={{ fontSize: '1.6rem', fontWeight: 800, fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>
             {hovered !== null ? slices[hovered].count : total}
           </span>
-          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             {hovered !== null ? slices[hovered].category : 'Species'}
           </span>
         </div>
@@ -159,7 +159,7 @@ export const ConservationStatusBarChart = ({ data = [] }) => {
               <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{item.status}</span>
               <span style={{ color, fontWeight: 700 }}>{item.count} species</span>
             </div>
-            <div style={{ height: '8px', background: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
+            <div style={{ height: '8px', background: 'var(--natural-pale-sage)', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
               <div
                 style={{
                   width: `${pct}%`,
@@ -197,12 +197,12 @@ export const RegionalDistributionChart = ({ data = [] }) => {
                 {item.speciesCount} species • {item.observationCount} observations
               </span>
             </div>
-            <div style={{ height: '7px', background: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
+            <div style={{ height: '7px', background: 'var(--natural-pale-sage)', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
               <div
                 style={{
                   width: `${pct}%`,
                   height: '100%',
-                  background: 'linear-gradient(90deg, #059669, #0284c7)',
+                  background: 'linear-gradient(90deg, #153D2B, #2F7651)',
                   borderRadius: 'var(--radius-full)',
                   transition: 'width 0.4s ease',
                 }}
@@ -241,8 +241,8 @@ export const PopulationTrendAreaChart = ({ data = [] }) => {
       <svg viewBox={`0 0 ${width} ${height}`} width="100%" height="100%" style={{ overflow: 'visible' }}>
         <defs>
           <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#059669" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#059669" stopOpacity="0.0" />
+            <stop offset="0%" stopColor="#2F7651" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#2F7651" stopOpacity="0.0" />
           </linearGradient>
         </defs>
 
@@ -254,12 +254,12 @@ export const PopulationTrendAreaChart = ({ data = [] }) => {
         <path d={areaD} fill="url(#trendGrad)" />
 
         {/* Line */}
-        <path d={pathD} fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" />
+        <path d={pathD} fill="none" stroke="#20563D" strokeWidth="2.5" strokeLinecap="round" />
 
         {/* Data points */}
         {points.map((p, i) => (
           <g key={i}>
-            <circle cx={p.x} cy={p.y} r="4" fill="#ffffff" stroke="#059669" strokeWidth="2.5" />
+            <circle cx={p.x} cy={p.y} r="4" fill="#ffffff" stroke="#20563D" strokeWidth="2.5" />
           </g>
         ))}
       </svg>
@@ -293,7 +293,7 @@ export const MajorThreatsChart = ({ data = [] }) => {
                 {item.affectedSpeciesCount} species
               </span>
             </div>
-            <div style={{ height: '7px', background: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
+            <div style={{ height: '7px', background: 'var(--natural-pale-sage)', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
               <div
                 style={{
                   width: `${pct}%`,

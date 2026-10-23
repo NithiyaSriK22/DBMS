@@ -360,21 +360,37 @@ exports.updateSpecies = async (req, res) => {
 exports.deleteSpecies = async (req, res) => {
   try {
     const { id } = req.params;
-
-    const species = await db.getOne('SELECT Common_Name FROM Species WHERE Species_ID = ?', [id]);
-    if (!species) {
-      return res.status(404).json({ success: false, message: `Species with ID #${id} not found.` });
+    const speciesId = parseInt(id, 10);
+    if (isNaN(speciesId)) {
+      return res.status(400).json({ success: false, message: 'Invalid species ID.' });
     }
 
-    // Cascade delete handles Species_Habitat, Species_Threat, Species_Observation
-    await db.query('DELETE FROM Species WHERE Species_ID = ?', [id]);
+    const species = await db.getOne('SELECT Common_Name, Scientific_Name FROM Species WHERE Species_ID = ?', [speciesId]);
+    if (!species) {
+      return res.status(404).json({ success: false, message: `Species with ID #${speciesId} not found in the database.` });
+    }
+
+    // Execute parameterized DELETE with foreign-key referential integrity enforced
+    await db.query('DELETE FROM Species WHERE Species_ID = ?', [speciesId]);
 
     res.json({
       success: true,
-      message: `Species "${species.Common_Name}" and associated relational records have been safely deleted.`,
+      message: `Species "${species.Common_Name}" (${species.Scientific_Name}) was successfully deleted.`,
     });
   } catch (err) {
     console.error('Delete species error:', err);
+    // Handle foreign key constraint failure gracefully
+    if (
+      err.code === 'ER_ROW_IS_REFERENCED_2' ||
+      err.code === 'ER_ROW_IS_REFERENCED' ||
+      err.errno === 1451 ||
+      (err.message && err.message.toLowerCase().includes('foreign key constraint'))
+    ) {
+      return res.status(409).json({
+        success: false,
+        message: `Cannot delete species: This species is referenced by existing observations, habitat records, or threats. Remove or reassign these associations before deleting.`,
+      });
+    }
     res.status(500).json({ success: false, message: 'Failed to delete species: ' + err.message });
   }
 };

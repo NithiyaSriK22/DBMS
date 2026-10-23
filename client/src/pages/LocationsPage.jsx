@@ -246,9 +246,9 @@ export const LocationsPage = () => {
                     {Number(loc.Latitude).toFixed(4)}° N, {Number(loc.Longitude).toFixed(4)}° E
                   </td>
                   <td style={{ whiteSpace: 'nowrap' }}>
-                    <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.775rem', color: 'var(--text-muted)' }}>
-                      <span style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>🐾 {loc.speciesCount || 0} species</span>
-                      <span style={{ background: '#f8fafc', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid #e2e8f0' }}>👁️ {loc.observationCount || 0} obs</span>
+                    <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.775rem', color: 'var(--forest-deep)' }}>
+                      <span style={{ background: 'var(--natural-pale-sage)', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid var(--border-subtle)' }}>🐾 {loc.speciesCount || 0} species</span>
+                      <span style={{ background: 'var(--natural-pale-sage)', padding: '0.2rem 0.45rem', borderRadius: '4px', border: '1px solid var(--border-subtle)' }}>👁️ {loc.observationCount || 0} obs</span>
                     </div>
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>

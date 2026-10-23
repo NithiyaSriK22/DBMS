@@ -17,6 +17,13 @@ database/*.db-shm
 .env
 .env.local
 
+# SSL certificates & keys
+*.pem
+*.crt
+*.cert
+*.key
+ca.pem
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
