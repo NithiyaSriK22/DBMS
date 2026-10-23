@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Full-Stack Relational Database Management System for Biodiversity Monitoring and Conservation",
   "main": "server/index.js",
+  "workspaces": [
+    "client"
+  ],
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server/index.js",

@@ -44,7 +44,8 @@ class DatabaseAdapter {
             } else {
               console.warn(`⚠️  Warning: DB_SSL_CA_PATH specified (${caPath}) but file was not found.`);
             }
-          } else if (caContent) {
+          }
+          if (!sslConfig.ca && caContent) {
             sslConfig.ca = caContent;
           }
 

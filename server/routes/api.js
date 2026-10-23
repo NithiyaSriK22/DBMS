@@ -18,7 +18,21 @@ const queriesController = require('../controllers/queriesController');
 const userController = require('../controllers/userController');
 const db = require('../config/db');
 
-// 0. HEALTH CHECK
+// 0. HEALTH CHECK & API ROOT
+router.get('/', (req, res) => {
+  res.json({
+    status: 'online',
+    service: 'Biodiversity Management System API',
+    endpoints: {
+      health: '/api/health',
+      stats: '/api/public/stats',
+      auth: '/api/auth/login',
+    },
+    dialect: db.dialect,
+    timestamp: new Date().toISOString(),
+  });
+});
+
 router.get('/health', (req, res) => {
   res.json({
     status: 'online',
